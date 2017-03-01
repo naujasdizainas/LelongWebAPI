@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/APIs/obj/Debug
+/APIs/bin
+/Models/obj/Debug
+/Models/bin/Debug
+/Services/obj/Debug
+/Services/bin/Debug
+/LelongApi/
