@@ -47,7 +47,7 @@ namespace Lelong.Services
                 new SqlParameter { ParameterName = "@ShipToLocation", Value = goodsItem.ShipToLocation, DbType = DbType.String },
                 new SqlParameter { ParameterName = "@PaymentMethod", Value = goodsItem.PaymentMethod, DbType = DbType.String },
                 new SqlParameter { ParameterName = "@GstType", Value = goodsItem.GstType, DbType = DbType.Int32 },
-                new SqlParameter { ParameterName = "@OptionsStatus", Value = goodsItem.OptionsStatus, DbType = DbType.Int32 }
+                new SqlParameter { ParameterName = "@OptionsStatus", Value = goodsItem.OptionsStatus, DbType = DbType.Int32 },
             };
             
             var result = SqlHelper.ExecuteScalarWithInputDataTable(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "[GoodsPublish_Insert]", SetGoodsPhotoTable(goodsItem.listPhoto), param);
@@ -103,8 +103,8 @@ namespace Lelong.Services
         public static DataTable SetGoodsPhotoTable(List<GoodsPhoto> listGoodsPhoto)
         {
             DataTable table = new DataTable();
-            table.Columns.Add("PhotoId", typeof(int));
-            table.Columns.Add("GoodPublishId", typeof(int));
+            //table.Columns.Add("PhotoId", typeof(int));
+            //table.Columns.Add("GoodPublishId", typeof(int));
             table.Columns.Add("PhotoName", typeof(string));
             table.Columns.Add("PhotoUrl", typeof(string));
             table.Columns.Add("PhotoDescription", typeof(string));

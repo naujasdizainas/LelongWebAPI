@@ -117,7 +117,6 @@ BEGIN
 	BEGIN TRY 
 		BEGIN TRANSACTION 
 		UPDATE [dbo].[Wizard] SET 
-			[WizardId] = @WizardId, 
 			[UserId] = @UserId, 
 			[DaysOfShip] = @DaysOfShip, 
 			[ItemsCategory] = @ItemsCategory, 
