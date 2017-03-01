@@ -21,11 +21,11 @@ namespace APIs.Controllers
         }
 
         [HttpPost]
-        [Route("public")]
+        [Route("publish")]
         // input: object GoodsData --> Return Id of Goods published.
-        public int PuplishGoods(Goods goodsItem)
+        public int PublishGoods(Goods goodsItem)
         {
-            var goodsId = Execute(session => GoodsService.PublishGoods(goodsItem));
+            var goodsId = GoodsService.PublishGoods(goodsItem);
             return goodsId;
         }
 

@@ -4,17 +4,17 @@ GO
 ------------------------------------------------
 -- sp Setting Insert
 IF EXISTS (SELECT * FROM sys.objects  
-			WHERE  object_id = OBJECT_ID(N'[dbo].[usp_Setting_Ins]') AND type IN (N'P', N'PC')) 
-DROP PROCEDURE [dbo].[usp_Setting_Ins] 
+			WHERE  object_id = OBJECT_ID(N'[dbo].[Setting_Insert]') AND type IN (N'P', N'PC')) 
+DROP PROCEDURE [dbo].[Setting_Insert] 
 GO 
 -- =============================================
 -- Author:		ThaoND
 -- Create date: 24-Feb-2017
 -- Description:	Setting Insert
 -- =============================================
-CREATE PROCEDURE [dbo].[usp_Setting_Ins] 
+CREATE PROCEDURE [dbo].[Setting_Insert] 
 	@SettingFieldId VARCHAR(255), 
-	@IsInstalled VARCHAR(255), 
+	@IsInstalled VARCHAR(255) 
 AS 
 BEGIN 
 	BEGIN TRY 
@@ -49,15 +49,15 @@ GO
 ------------------------------------------------
 -- sp Setting Select By
 IF EXISTS (SELECT * FROM sys.objects  
-			WHERE  object_id = OBJECT_ID(N'[dbo].[usp_Setting_SelById]') AND type IN (N'P', N'PC')) 
-DROP PROCEDURE [dbo].[usp_Setting_SelById] 
+			WHERE  object_id = OBJECT_ID(N'[dbo].[Setting_SelectById]') AND type IN (N'P', N'PC')) 
+DROP PROCEDURE [dbo].[Setting_SelectById] 
 GO 
 -- =============================================
 -- Author:		ThaoND
 -- Create date: 24-Feb-2017
 -- Description:	Setting Select by Id
 -- =============================================
-CREATE PROCEDURE [dbo].[usp_Setting_SelById] 
+CREATE PROCEDURE [dbo].[Setting_SelectById] 
 	@SettingFieldId VARCHAR(255) 
 AS 
 BEGIN 
@@ -71,15 +71,15 @@ GO
 ------------------------------------------------
 -- sp Setting Select All
 IF EXISTS (SELECT * FROM sys.objects  
-			WHERE  object_id = OBJECT_ID(N'[dbo].[usp_Setting_SelAll]') AND type IN (N'P', N'PC')) 
-DROP PROCEDURE [dbo].[usp_Setting_SelAll] 
+			WHERE  object_id = OBJECT_ID(N'[dbo].[Setting_SelectAll]') AND type IN (N'P', N'PC')) 
+DROP PROCEDURE [dbo].[Setting_SelectAll] 
 GO 
 -- =============================================
 -- Author:		ThaoND
 -- Create date: 24-Feb-2017
 -- Description:	Setting Select All
 -- =============================================
-CREATE PROCEDURE [dbo].[usp_Setting_SelAll] 
+CREATE PROCEDURE [dbo].[Setting_SelectAll] 
 AS 
 BEGIN 
 	SELECT 
@@ -91,15 +91,15 @@ GO
 ------------------------------------------------
 -- sp Setting Update
 IF EXISTS (SELECT * FROM sys.objects  
-			WHERE  object_id = OBJECT_ID(N'[dbo].[usp_Setting_Upd]') AND type IN (N'P', N'PC')) 
-DROP PROCEDURE [dbo].[usp_Setting_Upd] 
+			WHERE  object_id = OBJECT_ID(N'[dbo].[Setting_Update]') AND type IN (N'P', N'PC')) 
+DROP PROCEDURE [dbo].[Setting_Update] 
 GO 
 -- =============================================
 -- Author:		ThaoND
 -- Create date: 24-Feb-2017
 -- Description:	Setting Update
 -- =============================================
-CREATE PROCEDURE [dbo].[usp_Setting_Upd] 
+CREATE PROCEDURE [dbo].[Setting_Update] 
 	@SettingFieldId VARCHAR(255), 
 	@IsInstalled VARCHAR(255) 
 AS 
@@ -127,15 +127,15 @@ GO
 ------------------------------------------------
 -- sp Setting Delete
 IF EXISTS (SELECT * FROM sys.objects  
-			WHERE  object_id = OBJECT_ID(N'[dbo].[usp_Setting_Del]') AND type IN (N'P', N'PC')) 
-DROP PROCEDURE [dbo].[usp_Setting_Del] 
+			WHERE  object_id = OBJECT_ID(N'[dbo].[Setting_Delete]') AND type IN (N'P', N'PC')) 
+DROP PROCEDURE [dbo].[Setting_Delete] 
 GO 
 -- =============================================
 -- Author:		ThaoND
 -- Create date: 24-Feb-2017
 -- Description:	Setting Delete
 -- =============================================
-CREATE PROCEDURE [dbo].[usp_Setting_Del] 
+CREATE PROCEDURE [dbo].[Setting_Delete] 
 	@SettingFieldId VARCHAR(255) 
 AS 
 BEGIN 

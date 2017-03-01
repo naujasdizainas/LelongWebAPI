@@ -7,7 +7,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects
 			WHERE type = 'U' AND object_id = OBJECT_ID(N'[dbo].[Setting]')) 
 CREATE TABLE [dbo].[Setting] 
 ( 
-	[SettingFieldId] VARCHAR(255), 
+	[SettingFieldId] VARCHAR(255) NOT NULL, 
 	[IsInstalled] VARCHAR(255) 
 ) 
 GO 
@@ -18,9 +18,9 @@ IF NOT EXISTS (SELECT * FROM sys.objects
 CREATE TABLE [dbo].[User] 
 ( 
 	[UserId] INT IDENTITY(1, 1), 
-	[UserName] VARCHAR(255), 
-	[PassWord] VARCHAR(255), 
-	[Access_Token] VARCHAR(255), 
+	[UserName] VARCHAR(255) NOT NULL, 
+	[PassWord] VARCHAR(255) NOT NULL, 
+	[Access_Token] VARCHAR(255) NOT NULL, 
 	[Refresh_Token] VARCHAR(255), 
 	[LoginAttempt] INT, 
 	[MaxPostingAllow] INT, 
@@ -52,22 +52,25 @@ CREATE TABLE [dbo].[Wizard]
 ) ON [PRIMARY] 
 GO 
 ------------------------------------------------
---Table GoodsPublish
+--Table GoodsPublish 
 IF NOT EXISTS (SELECT * FROM sys.objects 
 			WHERE type = 'U' AND object_id = OBJECT_ID(N'[dbo].[GoodsPublish]')) 
 CREATE TABLE [dbo].[GoodsPublish] 
 ( 
 	[GoodPublishId] INT IDENTITY(1,1), 
 	[UserId] INT, 
-	[Title] NVARCHAR(255), 
+	[Title] NVARCHAR(255) NOT NULL, 
 	[SubTitle] NVARCHAR(255), 
+	[Condition] NVARCHAR(255) NOT NULL, 
 	[Guid] VARCHAR(50), 
 	--
+	[Price] REAL NOT NULL, 
 	[SalePrice] REAL, 
 	[Msrp] REAL, 
 	[CostPrice] REAL, 
 	[SaleType] NVARCHAR(255), 
-	[Category] INT, 
+	-- 
+	[Category] NVARCHAR(255) NOT NULL, 
 	[StoreCategory] INT, 
 	[Brand] NVARCHAR(255), 
 	[ShipWithin] INT, 
@@ -75,7 +78,7 @@ CREATE TABLE [dbo].[GoodsPublish]
 	[State] NVARCHAR(255), 
 	--
 	[Link] NVARCHAR(500), 
-	[Description] NVARCHAR(1000), 
+	[Description] NVARCHAR(1000) NOT NULL, 
 	[Video] NVARCHAR(500), 
 	[VideoAlign] NVARCHAR(255), 
 	[Active] INT, 
@@ -86,6 +89,7 @@ CREATE TABLE [dbo].[GoodsPublish]
 	[WhoPay] NVARCHAR(255), 
 	[ShippingMethod] NVARCHAR(255), 
 	[ShipToLocation] NVARCHAR(255), 
+	-- 
 	[PaymentMethod] NVARCHAR(255), 
 	[GstType] INT, 
 	[OptionsStatus] INT, 
