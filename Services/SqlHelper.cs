@@ -1399,7 +1399,7 @@ namespace Lelong.Services
             using (Track(cmd))
             {
                 // Execute the command & return the results
-                retval = cmd.ExecuteScalar();
+                retval = cmd.ExecuteNonQuery();
             }
 
             // Detach the SqlParameters from the command object, so they can be used again
