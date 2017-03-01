@@ -89,6 +89,35 @@ BEGIN
 END 
 GO 
 ------------------------------------------------
+-- sp User Select By UserName
+IF EXISTS (SELECT * FROM sys.objects  
+			WHERE  object_id = OBJECT_ID(N'[dbo].[User_SelectByUserName]') AND type IN (N'P', N'PC')) 
+DROP PROCEDURE [dbo].[User_SelectByUserName] 
+GO 
+-- =============================================
+-- Author:		ThaoND
+-- Create date: 24-Feb-2017
+-- Description:	User Select by UserName
+-- =============================================
+CREATE PROCEDURE [dbo].[User_SelectByUserName] 
+	@UserName Varchar(255) 
+AS 
+BEGIN 
+	SELECT 
+		[UserId], 
+		[UserName], 
+		[PassWord], 
+		[Access_Token], 
+		[Refresh_Token], 
+		[LoginAttempt], 
+		[MaxPostingAllow], 
+		[PostingAlready], 
+		[NumberOfPhotosAllow] 
+	FROM [dbo].[User] 
+	WHERE [UserName] = @UserName 
+END 
+GO 
+------------------------------------------------
 -- sp User Select All
 IF EXISTS (SELECT * FROM sys.objects  
 			WHERE  object_id = OBJECT_ID(N'[dbo].[User_SelectAll]') AND type IN (N'P', N'PC')) 

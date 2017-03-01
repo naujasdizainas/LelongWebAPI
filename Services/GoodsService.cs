@@ -110,7 +110,12 @@ namespace Lelong.Services
             table.Columns.Add("PhotoDescription", typeof(string));
             foreach (GoodsPhoto photo in listGoodsPhoto)
             {
-                table.Rows.Add(photo);
+                DataRow newRow = table.NewRow();
+                newRow["PhotoName"] = photo.PhotoName;
+                newRow["PhotoUrl"] = photo.PhotoUrl;
+                newRow["PhotoDescription"] = photo.PhotoDescription;
+
+                table.Rows.Add(newRow);
             }
             return table;
         }
