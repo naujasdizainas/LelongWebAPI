@@ -25,26 +25,30 @@ AS
 BEGIN 
 	BEGIN TRY 
 		BEGIN TRANSACTION 
-		INSERT INTO [dbo].[User]( 
-			[UserName], 
-			[PassWord], 
-			[Access_Token], 
-			[Refresh_Token], 
-			[LoginAttempt], 
-			[MaxPostingAllow], 
-			[PostingAlready], 
-			[NumberOfPhotosAllow] 
-		) 
-		VALUES( 
-			@UserName, 
-			@PassWord, 
-			@Access_Token, 
-			@Refresh_Token, 
-			@LoginAttempt, 
-			@MaxPostingAllow, 
-			@PostingAlready, 
-			@NumberOfPhotosAllow  
-		) 
+		
+		IF NOT EXISTS (SELECT * FROM [User] WHERE [UserName] = @UserName)
+		BEGIN
+			INSERT INTO [dbo].[User]( 
+				[UserName], 
+				[PassWord], 
+				[Access_Token], 
+				[Refresh_Token], 
+				[LoginAttempt], 
+				[MaxPostingAllow], 
+				[PostingAlready], 
+				[NumberOfPhotosAllow] 
+			) 
+			VALUES( 
+				@UserName, 
+				@PassWord, 
+				@Access_Token, 
+				@Refresh_Token, 
+				@LoginAttempt, 
+				@MaxPostingAllow, 
+				@PostingAlready, 
+				@NumberOfPhotosAllow  
+			) 
+		END
 		COMMIT TRANSACTION 
 	END TRY 
 	BEGIN CATCH 

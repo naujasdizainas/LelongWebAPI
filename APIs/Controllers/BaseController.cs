@@ -14,9 +14,9 @@ namespace APIs.Controllers
     {
         public T Execute<T>(Func<LoginSession, T> func)
         {
-            if (!Request.Headers.Contains("X-Login-Session"))
+            if (!Request.Headers.Contains("X-User-Context"))
                 throw new Exception("Missing or Invalid Session. Please logout then login again.");
-            var loginSession = Request.Headers.GetValues("X-Login-Session").FirstOrDefault();
+            var loginSession = Request.Headers.GetValues("X-User-Context").FirstOrDefault();
             var user = UserService.GetUserByUName(loginSession);
             if (user != null)
             {
