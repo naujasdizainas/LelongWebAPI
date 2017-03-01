@@ -9,6 +9,6 @@ namespace Lelong.Services
 {
     public static class Config
     {
-        public static string ConnectionString => ConfigurationManager.ConnectionStrings["GoodsDB"].ToString();
+        public static string ConnectionString => ConfigurationManager.ConnectionStrings["LeLongDB"].ToString();
     }
 }
