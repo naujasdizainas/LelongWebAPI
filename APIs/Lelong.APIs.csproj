@@ -121,10 +121,18 @@
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.15.0-build58334.js" />
     <Content Include="scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="SQL Script\00.Lelong_CreateTable.sql" />
+    <Content Include="SQL Script\01.sp_Lelong_GoodsPublish.sql" />
+    <Content Include="SQL Script\02.sp_Lelong_GoodsPublishPhoto.sql" />
+    <Content Include="SQL Script\03.sp_Lelong_Setting.sql" />
+    <Content Include="SQL Script\04.sp_Lelong_User.sql" />
+    <Content Include="SQL Script\05.sp_Lelong_Wizard.sql" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\GoodController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
