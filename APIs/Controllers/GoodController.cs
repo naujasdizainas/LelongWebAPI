@@ -11,20 +11,27 @@ using Lelong.Services;
 namespace APIs.Controllers
 {
     [RoutePrefix("api/goods")]
-    public class GoodController : ApiController
+    public class GoodController : BaseController
     {
+        [HttpGet]
+        [Route("getlist")]
+        public IList<Goods> GetListGoods(List<string> guids)
+        {
+            return null;
+        }
+
         [HttpPost]
         [Route("public")]
         // input: object GoodsData --> Return Id of Goods published.
         public int PuplishGoods(Goods goodsItem)
         {
-            var goodsId = GoodsService.PublishGoods(goodsItem);
+            var goodsId = Execute(session => GoodsService.PublishGoods(goodsItem));
             return goodsId;
         }
 
-        [HttpPost]
-        [Route("uploadImage")]
-        public Boolean UploadImage(string goodsPublishedId,object fileData)
+        [HttpPut]
+        [Route("delete")]
+        public Boolean DeleteGoods(List<string> guids)
         {
             return true;
         }
