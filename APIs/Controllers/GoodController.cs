@@ -14,7 +14,7 @@ namespace APIs.Controllers
     public class GoodController : ApiController
     {
         [HttpPost]
-        [Route("public")]
+        [Route("publish")]
         // input: object GoodsData --> Return Id of Goods published.
         public int PuplishGoods(Goods goodsItem)
         {

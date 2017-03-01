@@ -4,15 +4,15 @@ GO
 ------------------------------------------------
 -- sp Wizard Insert
 IF EXISTS (SELECT * FROM sys.objects  
-			WHERE  object_id = OBJECT_ID(N'[dbo].[usp_Wizard_Ins]') AND type IN (N'P', N'PC')) 
-DROP PROCEDURE [dbo].[usp_Wizard_Ins] 
+			WHERE  object_id = OBJECT_ID(N'[dbo].[Wizard_Insert]') AND type IN (N'P', N'PC')) 
+DROP PROCEDURE [dbo].[Wizard_Insert] 
 GO 
 -- =============================================
 -- Author:		ThaoND
 -- Create date: 24-Feb-2017
 -- Description:	Wizard Insert
 -- =============================================
-CREATE PROCEDURE [dbo].[usp_Wizard_Ins] 
+CREATE PROCEDURE [dbo].[Wizard_Insert] 
 	@UserId INT, 
 	@DaysOfShip INT, 
 	@ItemsCategory NVARCHAR(255), 
@@ -50,15 +50,15 @@ GO
 ------------------------------------------------
 -- sp Wizard Select By
 IF EXISTS (SELECT * FROM sys.objects  
-			WHERE  object_id = OBJECT_ID(N'[dbo].[usp_Wizard_SelById]') AND type IN (N'P', N'PC')) 
-DROP PROCEDURE [dbo].[usp_Wizard_SelById] 
+			WHERE  object_id = OBJECT_ID(N'[dbo].[Wizard_SelectById]') AND type IN (N'P', N'PC')) 
+DROP PROCEDURE [dbo].[Wizard_SelectById] 
 GO 
 -- =============================================
 -- Author:		ThaoND
 -- Create date: 24-Feb-2017
 -- Description:	Wizard Select by Id
 -- =============================================
-CREATE PROCEDURE [dbo].[usp_Wizard_SelById] 
+CREATE PROCEDURE [dbo].[Wizard_SelectById] 
 	@WizardId INT 
 AS 
 BEGIN 
@@ -75,15 +75,15 @@ GO
 ------------------------------------------------
 -- sp Wizard Select All
 IF EXISTS (SELECT * FROM sys.objects  
-			WHERE  object_id = OBJECT_ID(N'[dbo].[usp_Wizard_SelAll]') AND type IN (N'P', N'PC')) 
-DROP PROCEDURE [dbo].[usp_Wizard_SelAll] 
+			WHERE  object_id = OBJECT_ID(N'[dbo].[Wizard_SectlAll]') AND type IN (N'P', N'PC')) 
+DROP PROCEDURE [dbo].[Wizard_SelectAll] 
 GO 
 -- =============================================
 -- Author:		ThaoND
 -- Create date: 24-Feb-2017
 -- Description:	Wizard Select All
 -- =============================================
-CREATE PROCEDURE [dbo].[usp_Wizard_SelAll] 
+CREATE PROCEDURE [dbo].[Wizard_SelectAll] 
 AS 
 BEGIN 
 	SELECT 
@@ -98,15 +98,15 @@ GO
 ------------------------------------------------
 -- sp Wizard Update
 IF EXISTS (SELECT * FROM sys.objects  
-			WHERE  object_id = OBJECT_ID(N'[dbo].[usp_Wizard_Upd]') AND type IN (N'P', N'PC')) 
-DROP PROCEDURE [dbo].[usp_Wizard_Upd] 
+			WHERE  object_id = OBJECT_ID(N'[dbo].[Wizard_Update]') AND type IN (N'P', N'PC')) 
+DROP PROCEDURE [dbo].[Wizard_Update] 
 GO 
 -- =============================================
 -- Author:		ThaoND
 -- Create date: 24-Feb-2017
 -- Description:	Wizard Update
 -- =============================================
-CREATE PROCEDURE [dbo].[usp_Wizard_Upd] 
+CREATE PROCEDURE [dbo].[Wizard_Update] 
 	@WizardId INT, 
 	@UserId INT, 
 	@DaysOfShip INT, 
@@ -140,15 +140,15 @@ GO
 ------------------------------------------------
 -- sp Wizard Delete
 IF EXISTS (SELECT * FROM sys.objects  
-			WHERE  object_id = OBJECT_ID(N'[dbo].[usp_Wizard_Del]') AND type IN (N'P', N'PC')) 
-DROP PROCEDURE [dbo].[usp_Wizard_Del] 
+			WHERE  object_id = OBJECT_ID(N'[dbo].[Wizard_Delete]') AND type IN (N'P', N'PC')) 
+DROP PROCEDURE [dbo].[Wizard_Delete] 
 GO 
 -- =============================================
 -- Author:		ThaoND
 -- Create date: 24-Feb-2017
 -- Description:	Wizard Delete
 -- =============================================
-CREATE PROCEDURE [dbo].[usp_Wizard_Del] 
+CREATE PROCEDURE [dbo].[Wizard_Delete] 
 	@WizardId INT 
 AS 
 BEGIN 
