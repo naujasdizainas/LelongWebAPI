@@ -66,84 +66,124 @@ AS
 BEGIN 
 	BEGIN TRY 
 		BEGIN TRANSACTION 
-		DECLARE @v_GoodsPublish_Id INT
-		-- Insert Goods
-		INSERT INTO [dbo].[GoodsPublish]( 
-			[UserId], 
-			[Title], 
-			[SubTitle], 
-			[Condition],
-			[Guid], 
-			[Price], 
-			[SalePrice], 
-			[Msrp], 
-			[CostPrice], 
-			[SaleType], 
-			-- 
-			[Category], 
-			[StoreCategory], 
-			[Brand], 
-			[ShipWithin], 
-			[ModelSkuCode], 
-			[State], 
-			[Link], 
-			[Description], 
-			-- 
-			[Video], 
-			[VideoAlign], 
-			[Active], 
-			[Weight], 
-			[Quantity], 
-			-- 
-			[ShippingPrice], 
-			[WhoPay], 
-			[ShippingMethod], 
-			[ShipToLocation], 
-			[PaymentMethod], 
-			[GstType], 
-			[OptionsStatus], 
-			[CreatedDate], 
-			[LastEdited], 
-			[LastSync] 
-		) 
-		VALUES( 
-			@UserId, 
-			@Title, 
-			@SubTitle, 
-			@Condition, 
-			@Guid, 
-			@Price, 
-			@SalePrice, 
-			@Msrp, 
-			@CostPrice, 
-			@SaleType, 
-			--
-			@Category, 
-			@StoreCategory, 
-			@Brand, 
-			@ShipWithin, 
-			@ModelSkuCode, 
-			@State, 
-			@Link, 
-			@Description, 
-			-- 
-			@Video, 
-			@VideoAlign , 
-			@Active, 
-			@Weight, 
-			@Quantity, 
-			-- 
-			@ShippingPrice, 
-			@WhoPay, 
-			@ShippingMethod, 
-			@ShipToLocation, 
-			@PaymentMethod, 
-			@GstType, 
-			@OptionsStatus, 
-			GETDATE(), 
-			NULL, 
-			NULL 
-		) 
+		-- If Goods exist with GUID then Update else Insert
+		IF(EXISTS (SELECT [GoodPublishId] FROM [dbo].[GoodsPublish] WHERE [Guid] = @Guid))
+			UPDATE [dbo].[GoodsPublish] SET 
+				[UserId] = @UserId, 
+				[Title] = @Title, 
+				[SubTitle] = @SubTitle, 
+				[Condition] = @Condition,
+				/*[Guid],*/ 
+				[Price] = @Price, 
+				[SalePrice] = @SalePrice, 
+				[Msrp] = @Msrp, 
+				[CostPrice] = @CostPrice, 
+				[SaleType] = @SalePrice, 
+				-- 
+				[Category] = @Category, 
+				[StoreCategory] = @StoreCategory, 
+				[Brand] = @Brand, 
+				[ShipWithin] = @ShipWithin, 
+				[ModelSkuCode] = @ModelSkuCode, 
+				[State] = @State, 
+				[Link] = @Link, 
+				[Description] = @Description, 
+				-- 
+				[Video] = @Video, 
+				[VideoAlign] = @VideoAlign, 
+				[Active] = @Active, 
+				[Weight] = @Weight, 
+				[Quantity] = @Quantity, 
+				-- 
+				[ShippingPrice] = @ShippingPrice, 
+				[WhoPay] = @WhoPay, 
+				[ShippingMethod] = @ShippingMethod, 
+				[ShipToLocation] = @ShipToLocation, 
+				[PaymentMethod] = @PaymentMethod, 
+				[GstType] = @GstType, 
+				[OptionsStatus] = @OptionsStatus, 
+				/*[CreatedDate],*/ 
+				[LastEdited] = GETDATE(), 
+				[LastSync] = NULL
+			WHERE [Guid] = @Guid
+		ELSE
+			INSERT INTO [dbo].[GoodsPublish]( 
+				[UserId], 
+				[Title], 
+				[SubTitle], 
+				[Condition],
+				[Guid], 
+				[Price], 
+				[SalePrice], 
+				[Msrp], 
+				[CostPrice], 
+				[SaleType], 
+				-- 
+				[Category], 
+				[StoreCategory], 
+				[Brand], 
+				[ShipWithin], 
+				[ModelSkuCode], 
+				[State], 
+				[Link], 
+				[Description], 
+				-- 
+				[Video], 
+				[VideoAlign], 
+				[Active], 
+				[Weight], 
+				[Quantity], 
+				-- 
+				[ShippingPrice], 
+				[WhoPay], 
+				[ShippingMethod], 
+				[ShipToLocation], 
+				[PaymentMethod], 
+				[GstType], 
+				[OptionsStatus], 
+				[CreatedDate], 
+				[LastEdited], 
+				[LastSync] 
+			) 
+			VALUES( 
+				@UserId, 
+				@Title, 
+				@SubTitle, 
+				@Condition, 
+				@Guid, 
+				@Price, 
+				@SalePrice, 
+				@Msrp, 
+				@CostPrice, 
+				@SaleType, 
+				--
+				@Category, 
+				@StoreCategory, 
+				@Brand, 
+				@ShipWithin, 
+				@ModelSkuCode, 
+				@State, 
+				@Link, 
+				@Description, 
+				-- 
+				@Video, 
+				@VideoAlign , 
+				@Active, 
+				@Weight, 
+				@Quantity, 
+				-- 
+				@ShippingPrice, 
+				@WhoPay, 
+				@ShippingMethod, 
+				@ShipToLocation, 
+				@PaymentMethod, 
+				@GstType, 
+				@OptionsStatus, 
+				GETDATE(), 
+				NULL, 
+				NULL 
+			) 
+
 		DECLARE @v_goodpublishid INT = SCOPE_IDENTITY()
 		-- Insert Photo
 		INSERT INTO [dbo].[GoodsPublishPhoto]
@@ -173,7 +213,6 @@ BEGIN
 	RETURN @v_goodpublishid
 END 
 GO 
-
 ------------------------------------------------
 -- sp GoodsPublish Select By Id
 IF EXISTS (SELECT * FROM sys.objects  

@@ -2,4 +2,3 @@ E:\IMIP\LeLong\LelongAPI\Models\bin\Debug\Models.dll
 E:\IMIP\LeLong\LelongAPI\Models\bin\Debug\Models.pdb
 E:\IMIP\LeLong\LelongAPI\Models\obj\Debug\Models.dll
 E:\IMIP\LeLong\LelongAPI\Models\obj\Debug\Models.pdb
-E:\IMIP\LeLong\LelongAPI\Models\obj\Debug\Lelong.Models.csprojResolveAssemblyReference.cache
