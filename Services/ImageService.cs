@@ -10,14 +10,14 @@ namespace Lelong.Services
 {
     public class ImageService
     {
-        public static bool UpdateUrl(string urlPath,string imageName)
+        public static bool UpdateUrl(string urlPath, string imageName)
         {
             var param = new[]
             {
                 new SqlParameter { ParameterName = "@Url", Value =  urlPath, DbType = DbType.String },
                 new SqlParameter { ParameterName = "@Name", Value =  imageName, DbType = DbType.String }
             };
-            var result = SqlHelper.ExecuteNonQuery(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "[Update_GoodsImage_Url]", param);
+            var result = SqlHelper.ExecuteNonQuery(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "GoodsPublishPhoto_Update_Url", param);
             return true;
         }
         public static string GetImageUrl(string imageName)
@@ -26,7 +26,7 @@ namespace Lelong.Services
             {
                 new SqlParameter { ParameterName = "@Name", Value =  imageName, DbType = DbType.String }
             };
-            var result = SqlHelper.ExecuteScalar(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "[Get_GoodsImage_By_Name]", param);
+            var result = SqlHelper.ExecuteScalar(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "GoodsPublishPhoto_Get_Url", param);
             return result.ToString();
         }
     }

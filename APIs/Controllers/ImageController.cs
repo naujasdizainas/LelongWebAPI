@@ -12,7 +12,7 @@ using Lelong.Services;
 namespace APIs.Controllers
 {
     [RoutePrefix("api/image")]
-    public class ImageController:BaseController
+    public class ImageController : BaseController
     {
         [HttpPost]
         [Route("upload")]
@@ -66,7 +66,7 @@ namespace APIs.Controllers
                     return Request.CreateResponse(HttpStatusCode.NotFound, dict);
                 }
             });
-            
+
         }
 
         [HttpGet]
