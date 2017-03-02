@@ -17,7 +17,7 @@ namespace APIs.Controllers
         [HttpPost]
         [Route("upload")]
         [AllowAnonymous]
-        public async Task<HttpResponseMessage> UploadImage(string goodsPulishedId)
+        public async Task<HttpResponseMessage> UploadImage(string guiIdGoods)
         {
             return Execute(session =>
             {
@@ -48,8 +48,8 @@ namespace APIs.Controllers
                             }
                             else
                             {
-                                // Create folder to current goods image
-                                var folderName = postedFile.FileName.Substring(0, postedFile.FileName.LastIndexOf('.'));
+                                // Create folder to image upload by guid of Goods
+                                var folderName = guiIdGoods;
                                 string imageFolderPatch = HttpContext.Current.Server.MapPath("~/GoodsImage/" + folderName);
                                 if (!System.IO.Directory.Exists(imageFolderPatch))
                                 {
