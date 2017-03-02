@@ -15,9 +15,9 @@ namespace APIs.Controllers
     {
         [HttpGet]
         [Route("getlist")]
-        public IList<Goods> GetListGoods(List<string> guids)
+        public IList<Goods> GetListGoods([FromUri] List<string> guids)
         {
-            return null;
+            return GoodsService.GetListGoods(guids);
         }
 
         [HttpPost]
