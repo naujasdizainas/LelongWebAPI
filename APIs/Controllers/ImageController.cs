@@ -48,7 +48,14 @@ namespace APIs.Controllers
                             }
                             else
                             {
-                                var filePath = HttpContext.Current.Server.MapPath("~/App_Data/Images/" + postedFile.FileName + extension);
+                                // Create folder to current goods image
+                                var folderName = postedFile.FileName.Substring(0, postedFile.FileName.LastIndexOf('.'));
+                                string imageFolderPatch = HttpContext.Current.Server.MapPath("~/GoodsImage/" + folderName);
+                                if (!System.IO.Directory.Exists(imageFolderPatch))
+                                {
+                                    Directory.CreateDirectory(imageFolderPatch);
+                                }
+                                var filePath = HttpContext.Current.Server.MapPath("~/GoodsImage/" + folderName) + "/" + postedFile.FileName + extension;
                                 postedFile.SaveAs(filePath);
                                 // update photo Url in table goodsImage by fileName
                                 ImageService.UpdateUrl(filePath, postedFile.FileName);
