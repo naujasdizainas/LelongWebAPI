@@ -66,8 +66,10 @@ AS
 BEGIN 
 	BEGIN TRY 
 		BEGIN TRANSACTION 
+		DECLARE @v_goodpublishid INT = -1
 		-- If Goods exist with GUID then Update else Insert
 		IF(EXISTS (SELECT [GoodPublishId] FROM [dbo].[GoodsPublish] WHERE [Guid] = @Guid))
+		BEGIN 
 			UPDATE [dbo].[GoodsPublish] SET 
 				[UserId] = @UserId, 
 				[Title] = @Title, 
@@ -105,8 +107,17 @@ BEGIN
 				/*[CreatedDate],*/ 
 				[LastEdited] = GETDATE(), 
 				[LastSync] = NULL
-			WHERE [Guid] = @Guid
-		ELSE
+			WHERE [Guid] = @Guid 
+			--
+			SET @v_goodpublishid = (SELECT [GoodPublishId] FROM [dbo].[GoodsPublish] WHERE [Guid] = @Guid) 
+			-- 
+			DELETE FROM [dbo].[GoodsPublishPhoto] 
+			WHERE [GoodPublishId] IN (
+				SELECT [GoodPublishId] 
+				FROM [dbo].[GoodsPublish] WHERE [Guid] = @Guid)
+		END 
+		ELSE 
+		BEGIN 
 			INSERT INTO [dbo].[GoodsPublish]( 
 				[UserId], 
 				[Title], 
@@ -183,8 +194,11 @@ BEGIN
 				NULL, 
 				NULL 
 			) 
-
-		DECLARE @v_goodpublishid INT = SCOPE_IDENTITY()
+			-- 
+			SELECT @v_goodpublishid = SCOPE_IDENTITY() 
+			--
+			DELETE FROM [dbo].[GoodsPublishPhoto] WHERE [GoodPublishId] = @v_goodpublishid 
+		END
 		-- Insert Photo
 		INSERT INTO [dbo].[GoodsPublishPhoto]
 		(
