@@ -299,7 +299,7 @@ GO
 -- Description:	GoodsPublish Select by Guid
 -- =============================================
 CREATE PROCEDURE [dbo].[GoodsPublish_SelectByGuid] 
-	@Guid VARCHAR(50) 
+	@Guid VARCHAR(50)
 AS 
 BEGIN 
 	SELECT 
@@ -336,15 +336,17 @@ BEGIN
 		[ShipToLocation], 
 		[PaymentMethod], 
 		[GstType], 
-		[OptionsStatus], 
-		-- 
-		P.[PhotoId], 
-		P.[PhotoName],
-		P.[PhotoUrl], 
-		P.[PhotoDescription] 
-	FROM [dbo].[GoodsPublish] G
-	INNER JOIN [dbo].[GoodsPublishPhoto] P ON G.[GoodPublishId] = P.[GoodPublishId] 
+		[OptionsStatus]
+	FROM [dbo].[GoodsPublish] G	
 	WHERE G.[Guid] = @Guid 
+	-- 
+	SELECT 
+		[PhotoId], 
+		[PhotoName],
+		[PhotoUrl], 
+		[PhotoDescription] 
+	FROM [dbo].[GoodsPublishPhoto]
+	WHERE [GoodPublishId] = (SELECT [GoodPublishId] FROM [dbo].[GoodsPublish] WHERE [Guid] = @Guid)
 END 
 GO 
 ------------------------------------------------
