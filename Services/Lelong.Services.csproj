@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="ImageService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="GoodsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
