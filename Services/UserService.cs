@@ -25,7 +25,7 @@ namespace Lelong.Services
                 new SqlParameter { ParameterName = "@NumberOfPhotosAllow", Value = user.NumberOfPhotosAllow, DbType = DbType.Int32 }
             };
             
-            var result = SqlHelper.ExecuteNonQuery(Config.ConnectionString, CommandType.StoredProcedure, "[usp_User_Ins]", param);
+            var result = SqlHelper.ExecuteNonQuery(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "[usp_User_Ins]", param);
             return int.Parse(result.ToString());
         }
 
