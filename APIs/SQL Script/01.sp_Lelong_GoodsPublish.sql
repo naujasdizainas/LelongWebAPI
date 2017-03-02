@@ -418,17 +418,15 @@ GO
 -- Description:	GoodPublish Delete
 -- =============================================
 CREATE PROCEDURE [dbo].[GoodPublish_Delete] 
-	@GoodPublishId INT 
+	@Guid varchar(50) 
 AS 
 BEGIN 
 	BEGIN TRY 
 		BEGIN TRANSACTION 
-		-- Delete related Photo
-		DELETE [dbo].[GoodsPublishPhoto] 
-		WHERE [GoodPublishId] = @GoodPublishId 
-		-- Delete Goods
-		DELETE [dbo].[GoodsPublish] 
-		WHERE [GoodPublishId] = @GoodPublishId 
+		-- delete by logic 
+		UPDATE [GoodsPublish]
+		SET [Active] = 0
+		WHERE [Guid] = @Guid
 		COMMIT TRANSACTION 
 	END TRY 
 	BEGIN CATCH 

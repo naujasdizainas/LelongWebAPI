@@ -54,6 +54,16 @@ namespace Lelong.Services
             return int.Parse(result.ToString());
         }
 
+        public static void DeleteGoods(string guid)
+        {
+            var param = new[]
+            {
+                new SqlParameter { ParameterName = "@Guid", Value = guid, DbType = DbType.String },
+            };
+
+            SqlHelper.ExecuteNonQuery(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "[GoodPublish_Delete]", param);
+        }
+
         public static IEnumerable<Goods> GetSynedGoods()
         {
             

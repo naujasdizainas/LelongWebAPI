@@ -33,7 +33,15 @@ namespace APIs.Controllers
         [Route("delete")]
         public Boolean DeleteGoods(List<string> guids)
         {
-            return true;
+            return Execute(session =>
+            {
+                foreach (var guid in guids)
+                {
+                    GoodsService.DeleteGoods(guid);
+                }
+                
+                return true;
+            });
         }
     }
 }
