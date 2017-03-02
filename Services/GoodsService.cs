@@ -64,10 +64,14 @@ namespace Lelong.Services
             SqlHelper.ExecuteNonQuery(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "[GoodPublish_Delete]", param);
         }
 
-        public static IEnumerable<Goods> GetSynedGoods()
+        public static IEnumerable<Goods> GetListGoods(List<string> guids)
         {
-            
-            DataSet dts = SqlHelper.ExecuteDataset(Config.ConnectionString, CommandType.StoredProcedure, "GetSynedGoods");
+            string listGuiId = string.Join(",", guids.ToArray());
+            var param = new[]
+            {
+                new SqlParameter { ParameterName = "@ListGuid", Value = listGuiId, DbType = DbType.String },
+            };
+            DataSet dts = SqlHelper.ExecuteDataset(Config.ConnectionString, CommandType.StoredProcedure, "GoodsPublish_SelectByListGuid");
 
             var results = new List<Goods>();
             if (dts != null && dts.Tables[0] != null && dts.Tables[0].Rows.Count > 0)
@@ -81,6 +85,7 @@ namespace Lelong.Services
         {
             var goodsItem = new Goods();
             goodsItem.GoodPublishId = Convert.ToInt32(dr["GoodPublishId"]);
+
             
             return goodsItem;
         }
