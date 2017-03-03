@@ -114,154 +114,95 @@ BEGIN
 END 
 GO 
 ------------------------------------------------
+-- sp GoodsPublishPhoto Get Url
+IF EXISTS (SELECT * FROM sys.objects  
+			WHERE  object_id = OBJECT_ID(N'[dbo].[GoodsPublishPhoto_Get_Url]') AND type IN (N'P', N'PC')) 
+DROP PROCEDURE [dbo].[GoodsPublishPhoto_Get_Url] 
+GO 
+-- =============================================
+-- Author:		Thangtv
+-- Create date: 24-Feb-2017
+-- Description:	GoodsPublishPhoto update Url after saved in folder serve
+-- =============================================
+CREATE PROCEDURE [dbo].[GoodsPublishPhoto_Get_Url] 
+	@Name VARCHAR(200)  
+AS 
+BEGIN 
+     SELECT * FROM dbo.GoodsPublishPhoto WHERE PhotoName = @Name
+END 
+GO 
+------------------------------------------------
+-- sp GoodsPublishPhoto update Url
+IF EXISTS (SELECT * FROM sys.objects  
+			WHERE  object_id = OBJECT_ID(N'[dbo].[GoodsPublishPhoto_Update_Url]') AND type IN (N'P', N'PC')) 
+DROP PROCEDURE [dbo].[GoodsPublishPhoto_Update_Url] 
+GO 
+-- =============================================
+-- Author:		Thangtv
+-- Create date: 24-Feb-2017
+-- Description:	GoodsPublishPhoto update Url after saved in folder serve
+-- =============================================
+CREATE PROCEDURE [dbo].[GoodsPublishPhoto_Update_Url] 
+	@Url VARCHAR(255),
+	@Name VARCHAR(200)  
+AS 
+BEGIN 
+
+     UPDATE [dbo].[GoodsPublishPhoto]  SET [PhotoUrl] = @Url
+	 WHERE [PhotoName] = @Name
+		
+END 
+GO 
+------------------------------------------------
 -- sp GoodsPublishPhoto Select By GoodsId
 IF EXISTS (SELECT * FROM sys.objects  
 			WHERE  object_id = OBJECT_ID(N'[dbo].[GoodsPublishPhoto_SelectByGoodPublishId]') AND type IN (N'P', N'PC')) 
 DROP PROCEDURE [dbo].[GoodsPublishPhoto_SelectByGoodPublishId] 
 GO 
--- =============================================
--- Author:		ThaoND
--- Create date: 24-Feb-2017
--- Description:	GoodsPublishPhoto select by GoodsId
--- =============================================
-CREATE PROCEDURE [dbo].[GoodsPublishPhoto_SelectByGoodPublishId] 
-	@GoodPublishId INT 
-AS 
-BEGIN 
-	SELECT 
-		[PhotoId], 
-		[GoodPublishId],
-		[PhotoName],
-		[PhotoUrl],
-		[PhotoDescription] 
-	FROM [dbo].[GoodsPublishPhoto] 
-	WHERE [GoodPublishId] = @GoodPublishId 
-END 
-GO 
-------------------------------------------------
--- function split split to Table
-IF EXISTS (SELECT * FROM sys.objects  
-			WHERE  object_id = OBJECT_ID(N'[dbo].[fn_SplitToTable]') AND type IN ( N'FN', N'IF', N'TF', N'FS', N'FT' )) 
-DROP FUNCTION [dbo].[fn_SplitToTable] 
-GO 
 ---- =============================================
 ---- Author:		ThaoND
 ---- Create date: 24-Feb-2017
----- Description:	function split string to array
+---- Description:	GoodsPublishPhoto select by GoodsId
 ---- =============================================
---CREATE FUNCTION [dbo].[fn_SplitToTable]
---( 
---	@listitems VARCHAR(8000)
---) 
---RETURNS @tableitems TABLE (item INT)
+--CREATE PROCEDURE [dbo].[GoodsPublishPhoto_SelectByGoodPublishId] 
+--	@GoodPublishId INT 
 --AS 
 --BEGIN 
---	DECLARE 
---        @LastCommaPosition INT, 
---        @NextCommaPosition INT, 
---        @EndOfStringPosition INT, 
---        @StartOfStringPosition INT, 
---        @LengthOfString INT, 
---        @ItemString VARCHAR(100), 
---        @IDValue INT 
-
---    SET @LastCommaPosition = 0 
---    SET @NextCommaPosition = -1 
-
---    IF LTRIM(RTRIM(@listitems)) <> ''
---    BEGIN
-
---        WHILE(@NextCommaPosition <> 0)
---        BEGIN
---            SET @NextCommaPosition = CHARINDEX(',',@listitems,@LastCommaPosition + 1)
-
---            IF @NextCommaPosition = 0 
---                SET @EndOfStringPosition = LEN(@listitems) 
---            ELSE 
---                SET @EndOfStringPosition = @NextCommaPosition - 1 
-
---            SET @StartOfStringPosition  = @LastCommaPosition + 1 
---            SET @LengthOfString = (@EndOfStringPosition + 1) - @StartOfStringPosition 
---            SET @ItemString =  SUBSTRING(@listitems,@StartOfStringPosition,@LengthOfString)               
-
---            IF (@ItemString <> '') 
---                INSERT @tableitems VALUES(@ItemString) 
-
---            SET @LastCommaPosition = @NextCommaPosition
-
---        END --WHILE(@NextCommaPosition <> 0)
---    END --IF LTRIM(RTRIM(@IDList)) <> ''
-
---    RETURN
-
---	--ErrorBlock:
-
---	--RETURN
+--	SELECT 
+--		[PhotoId], 
+--		[GoodPublishId],
+--		[PhotoName],
+--		[PhotoUrl],
+--		[PhotoDescription] 
+--	FROM [dbo].[GoodsPublishPhoto] 
+--	WHERE [GoodPublishId] = @GoodPublishId 
 --END 
 --GO 
-------------------------------------------------
--- function string to Table
-IF EXISTS (SELECT * FROM sys.objects  
-			WHERE  object_id = OBJECT_ID(N'[dbo].[fn_StringToTable]') AND type IN ( N'FN', N'IF', N'TF', N'FS', N'FT' )) 
-DROP FUNCTION [dbo].[fn_StringToTable] 
-GO 
--- =============================================
--- Author:		ThaoND
--- Create date: 24-Feb-2017
--- Description:	function split string to Table
--- =============================================
-CREATE FUNCTION [dbo].[fn_StringToTable]
-( 
-	@list VARCHAR(8000)
-) 
-RETURNS @tbl TABLE (id INT)
-AS 
-BEGIN 
-	DECLARE @pos        int,
-           @nextpos    int,
-           @valuelen   int
-
-	SELECT @pos = 0, @nextpos = 1
-
-	WHILE @nextpos > 0
-	BEGIN
-		SELECT @nextpos = charindex(',', @list, @pos + 1)
-		SELECT @valuelen = CASE WHEN @nextpos > 0
-								THEN @nextpos
-								ELSE len(@list) + 1
-							END - @pos - 1
-		INSERT @tbl (id)
-			VALUES (convert(int, substring(@list, @pos + 1, @valuelen)))
-		SELECT @pos = @nextpos
-	END
-	RETURN
-END 
-GO 
 ------------------------------------------------
 -- sp GoodsPublishPhoto Select By List GoodsId
 IF EXISTS (SELECT * FROM sys.objects  
 			WHERE  object_id = OBJECT_ID(N'[dbo].[GoodsPublishPhoto_SelectByListGoodsId]') AND type IN (N'P', N'PC')) 
 DROP PROCEDURE [dbo].[GoodsPublishPhoto_SelectByListGoodsId] 
 GO 
--- =============================================
--- Author:		ThaoND
--- Create date: 24-Feb-2017
--- Description:	GoodsPublishPhoto select by GoodsId
--- =============================================
-CREATE PROCEDURE [dbo].[GoodsPublishPhoto_SelectByListGoodsId] 
-	@ListGoodsId VARCHAR(1000) 
-AS 
-BEGIN 
-	--DECLARE @query AS NVARCHAR(4000) 
-	--SET @query = 'SELECT [PhotoId], [GoodPublishId], [PhotoName], [PhotoUrl], [PhotoDescription] 
-	--			  FROM [dbo].[GoodsPublishPhoto] 
-	--			  WHERE [GoodPublishId] IN (' + @ListGoodsId  + ')'
-	--EXECUTE(@query)
-	SELECT [PhotoId], [GoodPublishId], [PhotoName], [PhotoUrl], [PhotoDescription]  
-	FROM [dbo].[GoodsPublishPhoto] 
-	WHERE [GoodPublishId] IN (SELECT id FROM [fn_StringToTable](@ListGoodsId))
-END 
-GO 
+---- =============================================
+---- Author:		ThaoND
+---- Create date: 24-Feb-2017
+---- Description:	GoodsPublishPhoto select by GoodsId
+---- =============================================
+--CREATE PROCEDURE [dbo].[GoodsPublishPhoto_SelectByListGoodsId] 
+--	@ListGoodsId VARCHAR(1000) 
+--AS 
+--BEGIN 
+--	--DECLARE @query AS NVARCHAR(4000) 
+--	--SET @query = 'SELECT [PhotoId], [GoodPublishId], [PhotoName], [PhotoUrl], [PhotoDescription] 
+--	--			  FROM [dbo].[GoodsPublishPhoto] 
+--	--			  WHERE [GoodPublishId] IN (' + @ListGoodsId  + ')'
+--	--EXECUTE(@query)
+--	SELECT [PhotoId], [GoodPublishId], [PhotoName], [PhotoUrl], [PhotoDescription]  
+--	FROM [dbo].[GoodsPublishPhoto] 
+--	WHERE [GoodPublishId] IN (SELECT id FROM [fn_StringToTable](@ListGoodsId))
+--END 
+--GO 
 ------------------------------------------------
 -- sp GoodsPublishPhoto Select All
 IF EXISTS (SELECT * FROM sys.objects  

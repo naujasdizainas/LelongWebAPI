@@ -2,6 +2,11 @@
 USE LeLongDB 
 GO 
 ------------------------------------------------
+-- sp GoodsPublish Insert
+IF EXISTS (SELECT * FROM sys.objects  
+			WHERE  object_id = OBJECT_ID(N'[dbo].[GoodsPublish_Insert]') AND type IN (N'P', N'PC')) 
+DROP PROCEDURE [dbo].[GoodsPublish_Insert] 
+GO 
 ---- type PhotoTableType 
 IF EXISTS (SELECT * FROM sys.types WHERE is_user_defined = 1 AND NAME = 'PhotoTableType') 
 DROP TYPE [dbo].[PhotoTableType]
@@ -15,51 +20,45 @@ CREATE TYPE [dbo].[PhotoTableType] AS TABLE
 	[PhotoDescription] NVARCHAR(500) 
 )
 GO 
-------------------------------------------------
--- sp GoodsPublish Insert
-IF EXISTS (SELECT * FROM sys.objects  
-			WHERE  object_id = OBJECT_ID(N'[dbo].[GoodsPublish_Insert]') AND type IN (N'P', N'PC')) 
-DROP PROCEDURE [dbo].[GoodsPublish_Insert] 
-GO 
 -- =============================================
 -- Author:		ThaoND
 -- Create date: 24-Feb-2017
 -- Description:	GoodsPublish Insert
 -- =============================================
 CREATE PROCEDURE [dbo].[GoodsPublish_Insert] 
-	@UserId INT, 
-	@Title NVARCHAR(255), 
-	@SubTitle NVARCHAR(255), 
-	@Condition NVARCHAR(255), 
-	@Guid VARCHAR(50), 
-	@Price REAL, 
-	@SalePrice REAL, 
-	@Msrp REAL, 
-	@CostPrice REAL, 
-	@SaleType NVARCHAR(255), 
+	@UserId INT = 0, 
+	@Title NVARCHAR(255) = '', 
+	@SubTitle NVARCHAR(255) = '', 
+	@Condition NVARCHAR(255) = '', 
+	@Guid VARCHAR(50) = '', 
+	@Price REAL = 0.0, 
+	@SalePrice REAL = 0.0, 
+	@Msrp REAL = 0.0, 
+	@CostPrice REAL = 0, 
+	@SaleType NVARCHAR(255) = '', 
 	-- 
-	@Category NVARCHAR(255), 
+	@Category NVARCHAR(255) = '', 
 	@StoreCategory INT, 
-	@Brand NVARCHAR(255), 
-	@ShipWithin INT, 
-	@ModelSkuCode NVARCHAR(255), 
-	@State NVARCHAR(255), 
-	@Link NVARCHAR(500), 
-	@Description NVARCHAR(1024), 
+	@Brand NVARCHAR(255) = '', 
+	@ShipWithin INT = 0, 
+	@ModelSkuCode NVARCHAR(255) = '', 
+	@State NVARCHAR(255) = '', 
+	@Link NVARCHAR(500) = '', 
+	@Description NVARCHAR(1024) = '', 
 	-- 
-	@Video NVARCHAR(500), 
-	@VideoAlign NVARCHAR(255), 
-	@Active INT, 
-	@Weight INT, 
-	@Quantity INT, 
+	@Video NVARCHAR(500) = '', 
+	@VideoAlign NVARCHAR(255) = '', 
+	@Active INT = 0, 
+	@Weight INT = 0, 
+	@Quantity INT = 0, 
 	-- 
-	@ShippingPrice NVARCHAR(255), 
-	@WhoPay NVARCHAR(255), 
-	@ShippingMethod NVARCHAR(255), 
-	@ShipToLocation NVARCHAR(255), 
-	@PaymentMethod NVARCHAR(255), 
-	@GstType INT, 
-	@OptionsStatus INT, 
+	@ShippingPrice NVARCHAR(255) = '', 
+	@WhoPay NVARCHAR(255) = '', 
+	@ShippingMethod NVARCHAR(255) = '', 
+	@ShipToLocation NVARCHAR(255) = '', 
+	@PaymentMethod NVARCHAR(255) = '', 
+	@GstType INT = 0, 
+	@OptionsStatus INT = 0, 
 	--
 	@GoodsPublishPhoto [dbo].[PhotoTableType] READONLY 
 AS 
@@ -227,7 +226,7 @@ BEGIN
 	RETURN @v_goodpublishid
 END 
 GO 
-------------------------------------------------
+----------------------------------------------
 -- sp GoodsPublish Select By Id
 IF EXISTS (SELECT * FROM sys.objects  
 			WHERE  object_id = OBJECT_ID(N'[dbo].[GoodsPublish_SelectById]') AND type IN (N'P', N'PC')) 
@@ -239,11 +238,12 @@ GO
 -- Description:	GoodsPublish Select by Id
 -- =============================================
 CREATE PROCEDURE [dbo].[GoodsPublish_SelectById] 
-	@GoodPublishId INT 
+	@GoodPublishId INT, 
+	@UserId INT 
 AS 
 BEGIN 
 	SELECT 
-		G.[GoodPublishId], 
+		[GoodPublishId], 
 		[UserId], 
 		[Title], 
 		[SubTitle], 
@@ -276,15 +276,20 @@ BEGIN
 		[ShipToLocation], 
 		[PaymentMethod], 
 		[GstType], 
-		[OptionsStatus], 
-		-- 
+		[OptionsStatus] 
+	FROM [dbo].[GoodsPublish] G 
+	WHERE G.[GoodPublishId] = @GoodPublishId 
+	  AND G.[UserId] = @UserId 
+	-- Get photo by Goods Id
+	SELECT 
 		P.[PhotoId], 
 		P.[PhotoName],
 		P.[PhotoUrl], 
 		P.[PhotoDescription] 
-	FROM [dbo].[GoodsPublish] G
-	INNER JOIN [dbo].[GoodsPublishPhoto] P ON G.[GoodPublishId] = P.[GoodPublishId] 
-	WHERE G.[GoodPublishId] = @GoodPublishId 
+	FROM [dbo].[GoodsPublishPhoto] P 
+	INNER JOIN [dbo].[GoodsPublish] G ON P.[GoodPublishId] = G.[GoodPublishId] 
+	WHERE P.[GoodPublishId] = @GoodPublishId 
+	  AND G.[UserId] = @UserId 
 END 
 GO 
 ------------------------------------------------
@@ -299,7 +304,8 @@ GO
 -- Description:	GoodsPublish Select by Guid
 -- =============================================
 CREATE PROCEDURE [dbo].[GoodsPublish_SelectByGuid] 
-	@Guid VARCHAR(50)
+	@Guid VARCHAR(50), 
+	@UserId INT 
 AS 
 BEGIN 
 	SELECT 
@@ -339,14 +345,87 @@ BEGIN
 		[OptionsStatus]
 	FROM [dbo].[GoodsPublish] G	
 	WHERE G.[Guid] = @Guid 
+	  AND G.[UserId] = @UserId 
 	-- 
 	SELECT 
 		[PhotoId], 
 		[PhotoName],
 		[PhotoUrl], 
 		[PhotoDescription] 
-	FROM [dbo].[GoodsPublishPhoto]
-	WHERE [GoodPublishId] = (SELECT [GoodPublishId] FROM [dbo].[GoodsPublish] WHERE [Guid] = @Guid)
+	FROM [dbo].[GoodsPublishPhoto] P
+	/*WHERE [GoodPublishId] = 
+	  (SELECT [GoodPublishId] FROM [dbo].[GoodsPublish] WHERE [Guid] = @Guid)*/
+	INNER JOIN [dbo].[GoodsPublish] G ON P.[GoodPublishId] = G.[GoodPublishId] 
+	WHERE G.[Guid] = @Guid 
+	  AND G.[UserId] = @UserId 
+END 
+GO 
+------------------------------------------------
+-- sp GoodsPublish Select By List Guid
+IF EXISTS (SELECT * FROM sys.objects  
+			WHERE  object_id = OBJECT_ID(N'[dbo].[GoodsPublish_SelectByListGuid]') AND type IN (N'P', N'PC')) 
+DROP PROCEDURE [dbo].[GoodsPublish_SelectByListGuid] 
+GO 
+-- =============================================
+-- Author:		ThaoND
+-- Create date: 24-Feb-2017
+-- Description:	GoodsPublish Select by List Guid
+-- =============================================
+CREATE PROCEDURE [dbo].[GoodsPublish_SelectByListGuid] 
+	@ListGuid VARCHAR(4000), 
+	@UserId INT 
+AS 
+BEGIN 
+	SELECT 
+		G.[GoodPublishId], 
+		[UserId], 
+		[Title], 
+		[SubTitle], 
+		[Condition], 
+		[Guid], 
+		[Price], 
+		[SalePrice], 
+		[Msrp], 
+		[CostPrice], 
+		[SaleType], 
+		-- 
+		[Category], 
+		[StoreCategory], 
+		[Brand], 
+		[ShipWithin], 
+		[ModelSkuCode], 
+		[State], 
+		[Link], 
+		[Description], 
+		-- 
+		[Video], 
+		[VideoAlign], 
+		[Active], 
+		[Weight], 
+		[Quantity], 
+		-- 
+		[ShippingPrice], 
+		[WhoPay], 
+		[ShippingMethod], 
+		[ShipToLocation], 
+		[PaymentMethod], 
+		[GstType], 
+		[OptionsStatus]
+	FROM [dbo].[GoodsPublish] G	
+	WHERE [GoodPublishId] IN (
+		SELECT [GoodPublishId] FROM [dbo].[GoodsPublish] P
+		/*WHERE [Guid] IN(SELECT [Data] FROM [dbo].[fn_Split](@ListGuid, ','))*/
+		INNER JOIN [dbo].[fn_Split](@ListGuid, ',') S ON P.[Guid] = S.[Data]) 
+	AND G.[UserId] = @UserId 
+	-- 
+	SELECT [PhotoId], G.[GoodPublishId], [PhotoName], [PhotoUrl], [PhotoDescription]  
+	FROM [dbo].[GoodsPublishPhoto] P 
+	INNER JOIN [dbo].[GoodsPublish] G ON P.[GoodPublishId] = G.[GoodPublishId] 
+	WHERE G.[GoodPublishId] IN (
+		SELECT [GoodPublishId] FROM [dbo].[GoodsPublish] G1
+		/*WHERE [Guid] IN(SELECT [Data] FROM [dbo].[fn_Split](@ListGuid, ','))*/
+		INNER JOIN [dbo].[fn_Split](@ListGuid, ',') S ON G1.[Guid] = S.[Data]) 
+	AND G.[UserId] = @UserId 
 END 
 GO 
 ------------------------------------------------
@@ -361,10 +440,11 @@ GO
 -- Description:	GoodsPublish Select All
 -- =============================================
 CREATE PROCEDURE [dbo].[GoodsPublish_SelectAll] 
+	@UserId INT 
 AS 
 BEGIN 
 	SELECT 
-		G.[GoodPublishId], 
+		[GoodPublishId], 
 		[UserId], 
 		[Title], 
 		[SubTitle], 
@@ -397,13 +477,14 @@ BEGIN
 		[ShipToLocation], 
 		[PaymentMethod], 
 		[GstType], 
-		[OptionsStatus], 
-		P.[PhotoId], 
-		P.[PhotoName],
-		P.[PhotoUrl], 
-		P.[PhotoDescription] 
-	FROM [dbo].[GoodsPublish] G 
-	INNER JOIN [dbo].[GoodsPublishPhoto] P ON G.[GoodPublishId] = P.[GoodPublishId] 
+		[OptionsStatus] 
+	FROM [dbo].[GoodsPublish] 
+	WHERE [UserId] = @UserId 
+	-- 
+	SELECT [PhotoId], G.[GoodPublishId], [PhotoName], [PhotoUrl], [PhotoDescription]  
+	FROM [dbo].[GoodsPublishPhoto] P 
+	INNER JOIN [dbo].[GoodsPublish] G ON P.[GoodPublishId] = G.[GoodPublishId] 
+	WHERE G.[UserId] = @UserId 
 END 
 GO 
 ------------------------------------------------
@@ -418,7 +499,7 @@ GO
 -- Description:	GoodPublish Delete
 -- =============================================
 CREATE PROCEDURE [dbo].[GoodPublish_Delete] 
-	@Guid varchar(50) 
+	@Guid VARCHAR(50) 
 AS 
 BEGIN 
 	BEGIN TRY 
