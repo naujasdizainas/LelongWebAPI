@@ -64,10 +64,14 @@ namespace Lelong.Services
             SqlHelper.ExecuteNonQuery(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "[GoodPublish_Delete]", param);
         }
 
-        public static IList<Goods> GetAll()
+        public static IList<Goods> GetAll(int userId)
         {
             var results = new List<Goods>();
-            DataSet dts = SqlHelper.ExecuteDataset(Config.ConnectionString, CommandType.StoredProcedure, "GoodsPublish_SelectAll");
+            var param = new[]
+            {
+                new SqlParameter { ParameterName = "@UserId", Value = userId, DbType = DbType.Int32 },
+            };
+            DataSet dts = SqlHelper.ExecuteDataset(Config.ConnectionString, CommandType.StoredProcedure, "GoodsPublish_SelectAll",param);
 
             var tablePhoto = dts.Tables[1];
 
@@ -78,12 +82,13 @@ namespace Lelong.Services
             return results;
         }
 
-        public static IList<Goods> GetListGoods(List<string> guids)
+        public static IList<Goods> GetListGoods(List<string> guids,int userId)
         {
             string listGuiId = guids[0].ToString();
             var param = new[]
             {
                 new SqlParameter { ParameterName = "@ListGuid", Value = listGuiId, DbType = DbType.String },
+                  new SqlParameter { ParameterName = "@UserId", Value = userId, DbType = DbType.Int32 },
             };
             DataSet dts = SqlHelper.ExecuteDataset(Config.ConnectionString, CommandType.StoredProcedure, "GoodsPublish_SelectByListGuid",param);
 

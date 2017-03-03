@@ -31,7 +31,20 @@ namespace Lelong.Services
 
         public static User GetUserByUName(string userName)
         {
-            return new User();
+            var userLogin = new User();
+            var param = new[]
+            {
+                new SqlParameter { ParameterName = "@UserName", Value =  userName, DbType = DbType.String },
+            };
+            var dataReader = SqlHelper.ExecuteReader(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "[User_SelectByUserName]", param);
+            while (dataReader.Read())
+            {
+                userLogin.UserId = dataReader["UserId"] == DBNull.Value ? default(int) : Convert.ToInt32(dataReader["UserId"]);
+                userLogin.UserName = dataReader["UserName"].ToString();
+                break;
+            }
+            return userLogin;
         }
+       
     }
 }

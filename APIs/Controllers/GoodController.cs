@@ -17,14 +17,17 @@ namespace APIs.Controllers
         [Route("getAll")]
         public IList<Goods> GetAllGoods()
         {
-            return Execute(session => GoodsService.GetAll());
+            return Execute(session =>
+            {
+               return GoodsService.GetAll(session.User.UserId);
+            });
         }
 
         [HttpGet]
         [Route("getlist")]
         public IList<Goods> GetListGoods([FromUri] List<string> guids)
         {
-            return Execute (session => GoodsService.GetListGoods(guids)) ;
+            return Execute (session => GoodsService.GetListGoods(guids, session.User.UserId)) ;
         }
 
         [HttpPost]
