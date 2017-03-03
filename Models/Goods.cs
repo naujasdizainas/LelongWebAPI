@@ -45,9 +45,9 @@ namespace Lelong.Models
         public string PaymentMethod { get; set; }
         public int GstType { get; set; }
         public int OptionsStatus { get; set; }
-        //public DateTime CreatedDate { get; set; }
-        //public DateTime LastEdited { get; set; }
-        //public DateTime LastSync { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime LastEdited { get; set; }
+        public DateTime LastSync { get; set; }
 
         public List<GoodsPhoto> listPhoto { get; set; }
     }

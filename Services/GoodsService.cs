@@ -138,6 +138,9 @@ namespace Lelong.Services
             goodsItem.PaymentMethod = dr["PaymentMethod"].ToString();
             goodsItem.GstType = dr["GstType"] == DBNull.Value?default(int): Convert.ToInt32(dr["GstType"]);
             goodsItem.OptionsStatus = dr["OptionsStatus"]==DBNull.Value?default(int): Convert.ToInt32(dr["OptionsStatus"]);
+            goodsItem.CreatedDate = dr["CreatedDate"] == DBNull.Value ? default(DateTime) : Convert.ToDateTime(dr["CreatedDate"].ToString());
+            goodsItem.LastEdited = dr["LastEdited"] == DBNull.Value ? default(DateTime) : Convert.ToDateTime(dr["LastEdited"]);
+            goodsItem.LastSync = dr["LastSync"] == DBNull.Value ? default(DateTime) : Convert.ToDateTime(dr["LastSync"]);
 
             var listPhoto = new List<GoodsPhoto>();
             listPhoto.AddRange (from DataRow drItem in tablePhoto.Rows
