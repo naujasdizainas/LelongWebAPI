@@ -55,7 +55,7 @@ namespace APIs.Controllers
                                 {
                                     Directory.CreateDirectory(imageFolderPatch);
                                 }
-                                var filePath = HttpContext.Current.Server.MapPath("~/GoodsImage/" + folderName) + "/" + postedFile.FileName + extension;
+                                var filePath = HttpContext.Current.Server.MapPath("~/GoodsImage/" + folderName) + "/" + postedFile.FileName;
                                 postedFile.SaveAs(filePath);
                                 // update photo Url in table goodsImage by fileName
                                 ImageService.UpdateUrl(filePath, postedFile.FileName);

@@ -1,0 +1,15 @@
+﻿.col-actions {
+    width: 80px;
+}
+.col-email {
+    width:300px;
+}
+.col-id {
+   width:250px;
+}
+.text-center {
+    text-align:center;
+}
+.pull-right {
+    float:right;
+}

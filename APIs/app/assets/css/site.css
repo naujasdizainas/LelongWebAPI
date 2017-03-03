@@ -1,0 +1,80 @@
+﻿.logo-wrapper {
+    height: 100%;
+}
+img.logo {
+    width: 100%;
+    height: 100%; 
+}
+
+.icheckField {
+    padding-top: 9px;
+}
+
+.feature-branch-deployment {}
+.feature-branch-deployment .org-name {
+    font-weight: bold;
+}
+.feature-branch-deployment .status.error {
+    color: red;
+}
+.feature-branch-deployment .status.success {
+    color: greenyellow;
+}
+.feature-branch-deployment .result {
+    
+}
+table thead tr th.sorting_asc,
+table thead tr th.sorting_desc,
+table thead tr th.sortable {
+    cursor: pointer;
+} 
+
+.generate-default-result-containter {
+    padding:10px 25px;
+}
+.generate-default-result-containter a {
+    display:inherit;
+    margin-top:10px;
+}
+.generate-default-result {
+    font-size: 15px;
+    font-weight: bold;
+    word-wrap: break-word;
+}
+.custom-radio-inline {
+    margin-left: 0px !important; margin-right: 15px; cursor: pointer;
+}
+
+/*Requet log page*/
+.table-max-hight200 {
+        height: 200px;
+        overflow: auto;
+    }
+
+    pre {
+        border: none;
+        background: #fff;
+        padding: 0px;
+        margin:0px;
+        height: 100%
+    }
+
+    .string {
+        color: green;
+    }
+
+    .number {
+        color: darkorange;
+    }
+
+    .boolean {
+        color: blue;
+    }
+
+    .null {
+        color: magenta;
+    }
+
+    .key {
+        color: red;
+    }

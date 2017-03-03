@@ -1,0 +1,78 @@
+.page-header.navbar.navbar-fixed-top {
+    z-index: 995;
+}
+
+.page-sidebar .sidebar-toggler, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-toggler {
+    margin-bottom: 15px;
+}
+
+.table .btn {
+    margin-right: 0 !important;
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    vertical-align: middle !important;
+}
+
+.td-word-wrap {
+    word-break: break-all;
+}
+.wordwrap {
+			text-overflow: ellipsis;
+			max-width: 0;
+			overflow: hidden;
+			word-wrap: break-word;
+			white-space: nowrap;
+		}
+.required {
+    border-left: 3px solid red !important;
+}
+
+.error {
+    color: red !important;
+}
+
+.is-disabled {
+    display: none;
+}
+/* Start overwrite css for bootstrap-switch */
+.bootstrap-switch {
+    width: 80px !important;
+    height: 24px !important;
+    border-radius: 2pt !important;
+    border-color: #d1d3d4 !important;
+}
+
+
+
+    .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on {
+        padding: 3px 10px !important;
+        width: 40px !important;
+    }
+
+    .bootstrap-switch.bootstrap-switch-focused {
+        border-color: #d1d3d4 !important;
+    }
+
+    .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary {
+        background: rgb(0,161,223) !important;
+    }
+
+    .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default {
+        background: #cdcfd0 !important;
+        color: #ffffff !important;
+        width: 40px !important;
+    }
+
+.popover {
+    color: black;
+    max-width: 500px;
+    min-width: 350px;
+}
+.isdisabled {
+        opacity: .5;
+        pointer-events: none;
+    }
+.close{
+    margin-top: 5px !important;
+}

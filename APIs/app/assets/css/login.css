@@ -1,0 +1,8 @@
+﻿.login .logo {
+    margin-bottom: 5px;
+    padding: 0;
+}
+
+.login .logo a img {
+    height: 40px;
+}

@@ -1,0 +1,63 @@
+﻿.table .btn {
+        margin-right: 0 !important;
+    }
+    .td-word-wrap {
+        word-break: break-all;
+    }
+
+
+
+.table tr td {
+    vertical-align: middle;
+}
+.table.dataTable {
+    margin-bottom: 10px;
+    clear: both;
+}
+.table-bordered.dataTable {
+    border-top: 1px solid #ddd;
+}
+
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    background: #f9f9f9;
+}
+.table>thead>tr>th {
+    vertical-align: middle;
+    border-bottom: 2px solid #ddd;
+}
+.table>tbody>tr>td {
+    vertical-align: middle;
+    border-bottom: 2px solid #ddd;
+}
+.dataTables_extended_wrapper div.dataTables_info, .dataTables_extended_wrapper div.dataTables_length, .dataTables_extended_wrapper div.dataTables_paginate {
+    display: inline-block;
+    float: none!important;
+    padding: 0!important;
+    margin: 0!important;
+    position: static!important;
+}
+.theme-panel {
+     z-index: 900;
+     display: block; 
+}
+.theme-panel>.header-button:hover {
+    background-color: #3f4f62!important;
+}
+.theme-panel>.header-button {
+    right: 0;
+    position: absolute;
+    background: url(../../images/icon-color.png) center no-repeat #536881;
+    border-radius: 4px;
+}
+.theme-panel>.header-button {
+    padding: 20px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    top: 4px;
+    cursor: pointer;
+}
+.page-title button {
+    margin-left:15px;
+}

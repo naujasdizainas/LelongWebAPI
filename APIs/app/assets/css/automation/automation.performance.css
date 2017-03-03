@@ -1,0 +1,76 @@
+﻿.box-title {
+    padding: 7px 0 7px 0px !important;
+}
+
+.chart {
+    min-height: 350px;
+}
+
+.tabs-inline li {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.tabs.tabs-inline.tabs-top > li.active > a {
+    background: none repeat scroll 0 0 #eeeeee !important;
+    border-top: 3px solid #368EE0;
+    color: #333;
+}
+
+.tabs.tabs-inline.tabs-top > li > a {
+    background: none repeat scroll 0 0 #ffffff !important;
+    border-top: 3px solid #C4D8EA;
+    color: #333;
+}
+
+    .tabs.tabs-inline.tabs-top > li > a:hover {
+        background: none repeat scroll 0 0 #eeeeee !important;
+        color: #333;
+    }
+
+.tabs-top {
+    border-bottom: 2px solid #EEEEEE;
+}
+
+td {
+    vertical-align: top !important;
+}
+
+    td.tc {
+        text-align: center !important;
+    }
+
+.chart-title {
+    color: #000000;
+}
+
+    .chart-title:hover {
+        text-decoration: underline;
+    }
+
+.theme-panel {
+     z-index: 900;
+     display: block; 
+}
+.theme-panel>.header-button:hover {
+    background-color: #3f4f62!important;
+}
+.theme-panel>.header-button {
+    right: 0;
+    position: absolute;
+    background: url(../../images/icon-color.png) center no-repeat #536881;
+    border-radius: 4px;
+}
+.theme-panel>.header-button {
+    padding: 20px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    top: 4px;
+    cursor: pointer;
+}
+.modal-body {
+    max-height: 400px;
+    overflow-y: auto;
+}

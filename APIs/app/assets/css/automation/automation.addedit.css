@@ -1,0 +1,6 @@
+﻿.form .form-actions, .portlet-form .form-actions {
+    padding: 20px;
+    margin: 0;
+    background-color: #f5f5f5;
+    border-top: 1px solid #e7ecf1;
+}
