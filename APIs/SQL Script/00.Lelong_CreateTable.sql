@@ -61,16 +61,16 @@ CREATE TABLE [dbo].[GoodsPublish]
 	[UserId] INT, 
 	[Title] NVARCHAR(255) NOT NULL, 
 	[SubTitle] NVARCHAR(255), 
-	[Condition] NVARCHAR(255) NOT NULL, 
+	[Condition] NVARCHAR(255), 
 	[Guid] VARCHAR(50), 
 	--
-	[Price] REAL NOT NULL, 
+	[Price] REAL, 
 	[SalePrice] REAL, 
 	[Msrp] REAL, 
 	[CostPrice] REAL, 
 	[SaleType] NVARCHAR(255), 
 	-- 
-	[Category] NVARCHAR(255) NOT NULL, 
+	[Category] NVARCHAR(255), 
 	[StoreCategory] INT, 
 	[Brand] NVARCHAR(255), 
 	[ShipWithin] INT, 
@@ -78,7 +78,7 @@ CREATE TABLE [dbo].[GoodsPublish]
 	[State] NVARCHAR(255), 
 	--
 	[Link] NVARCHAR(500), 
-	[Description] NVARCHAR(1000) NOT NULL, 
+	[Description] NVARCHAR(1000), 
 	[Video] NVARCHAR(500), 
 	[VideoAlign] NVARCHAR(255), 
 	[Active] INT, 
