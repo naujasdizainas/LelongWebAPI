@@ -2,7 +2,7 @@
 USE LeLongDB 
 GO 
 ------------------------------------------------
--- sp GoodsPublish Insert
+-- sp GoodsPublish Insert 
 IF EXISTS (SELECT * FROM sys.objects  
 			WHERE  object_id = OBJECT_ID(N'[dbo].[GoodsPublish_Insert]') AND type IN (N'P', N'PC')) 
 DROP PROCEDURE [dbo].[GoodsPublish_Insert] 

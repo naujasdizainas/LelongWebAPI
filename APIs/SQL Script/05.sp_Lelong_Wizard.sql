@@ -131,7 +131,7 @@ BEGIN
 			@ErrSeverity = ERROR_SEVERITY(), @ErrState = ERROR_STATE() 
 
 		RAISERROR(@ErrMsg, @ErrSeverity, @ErrState) 
-		--Rollback
+		--Rollback 
 		IF (@@TRANCOUNT > 0) ROLLBACK TRANSACTION
 	END CATCH
 END 
