@@ -14,10 +14,17 @@ namespace APIs.Controllers
     public class GoodController : BaseController
     {
         [HttpGet]
+        [Route("getAll")]
+        public IList<Goods> GetAllGoods()
+        {
+            return Execute(session => GoodsService.GetAll());
+        }
+
+        [HttpGet]
         [Route("getlist")]
         public IList<Goods> GetListGoods([FromUri] List<string> guids)
         {
-            return GoodsService.GetListGoods(guids);
+            return Execute (session => GoodsService.GetListGoods(guids)) ;
         }
 
         [HttpPost]

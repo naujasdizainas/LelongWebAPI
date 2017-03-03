@@ -64,6 +64,20 @@ namespace Lelong.Services
             SqlHelper.ExecuteNonQuery(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "[GoodPublish_Delete]", param);
         }
 
+        public static IList<Goods> GetAll()
+        {
+            var results = new List<Goods>();
+            DataSet dts = SqlHelper.ExecuteDataset(Config.ConnectionString, CommandType.StoredProcedure, "GoodsPublish_SelectAll");
+
+            var tablePhoto = dts.Tables[1];
+
+            if (dts != null && dts.Tables[0] != null && dts.Tables[0].Rows.Count > 0)
+            {
+                results.AddRange(from DataRow dr in dts.Tables[0].Rows select ParseGoodsDataRow(dr, tablePhoto));
+            }
+            return results;
+        }
+
         public static IList<Goods> GetListGoods(List<string> guids)
         {
             string listGuiId = guids[0].ToString();
@@ -92,11 +106,33 @@ namespace Lelong.Services
             goodsItem.Subtitle = dr["Subtitle"].ToString();
             goodsItem.Condition = dr["Condition"].ToString();
             goodsItem.Guid = dr["Guid"].ToString();
-            goodsItem.Price = float.Parse(dr["Price"].ToString());
-            goodsItem.SalePrice = float.Parse(dr["SalePrice"].ToString());
-            goodsItem.Msrp = float.Parse(dr["Msrp"].ToString());
-            goodsItem.CostPrice = float.Parse(dr["CostPrice"].ToString());
-            goodsItem.SaleType = dr["SaleType"].ToString();
+
+            goodsItem.Price = dr["Price"]==DBNull.Value?default(float): float.Parse(dr["Price"].ToString());
+            goodsItem.SalePrice = dr["SalePrice"] == DBNull.Value? default(float): float.Parse(dr["SalePrice"].ToString());
+            goodsItem.Msrp = dr["Msrp"] == DBNull.Value?default(float): float.Parse(dr["Msrp"].ToString());
+            goodsItem.CostPrice = dr["CostPrice"] == DBNull.Value? default(float): float.Parse(dr["CostPrice"].ToString());
+            goodsItem.SaleType =  dr["SaleType"].ToString();
+            goodsItem.Category = Convert.ToInt32(dr["Category"]);
+            goodsItem.StoreCategory = Convert.ToInt32(dr["StoreCategory"]);
+            goodsItem.Brand = dr["Brand"].ToString();
+            goodsItem.ShipWithin = Convert.ToInt32(dr["ShipWithin"]);
+            goodsItem.ModelSkuCode = dr["ModelSkuCode"].ToString();
+            goodsItem.State = dr["State"].ToString();
+            goodsItem.Link = dr["Link"].ToString();
+            goodsItem.Description = dr["Description"].ToString();
+
+            goodsItem.Video = dr["Video"].ToString();
+            goodsItem.VideoAlign = dr["VideoAlign"].ToString();
+            goodsItem.Active = Convert.ToInt32 (dr["Active"]);
+            goodsItem.Weight = Convert.ToInt32(dr["Weight"]);
+            goodsItem.Quantity = Convert.ToInt32(dr["Quantity"]);
+            goodsItem.ShippingPrice = dr["ShippingPrice"].ToString();
+            goodsItem.WhoPay = dr["WhoPay"].ToString();
+            goodsItem.ShippingMethod = dr["ShippingMethod"].ToString();
+            goodsItem.ShipToLocation = dr["ShipToLocation"].ToString();
+            goodsItem.PaymentMethod = dr["PaymentMethod"].ToString();
+            goodsItem.GstType = Convert.ToInt32(dr["GstType"]);
+            goodsItem.OptionsStatus = Convert.ToInt32(dr["OptionsStatus"]);
 
             var listPhoto = new List<GoodsPhoto>();
             listPhoto.AddRange (from DataRow drItem in tablePhoto.Rows
