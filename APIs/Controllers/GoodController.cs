@@ -35,8 +35,13 @@ namespace APIs.Controllers
         // input: object GoodsData --> Return Id of Goods published.
         public int PublishGoods(Goods goodsItem)
         {
-            var goodsId = Execute(session => GoodsService.PublishGoods(goodsItem));
-            return goodsId;
+            return Execute(session =>
+            {
+                goodsItem.UserId = session.User.UserId;
+                var goodsId = GoodsService.PublishGoods(goodsItem);
+                return goodsId;
+            });
+           
         }
 
         [HttpPut]

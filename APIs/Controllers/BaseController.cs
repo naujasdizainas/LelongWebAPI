@@ -18,7 +18,7 @@ namespace APIs.Controllers
                 throw new Exception("Missing or Invalid Session. Please logout then login again.");
             var loginSession = Request.Headers.GetValues("X-User-Context").FirstOrDefault();
             var user = UserService.GetUserByUName(loginSession);
-            if (user != null)
+            if (user.UserId>0)
             {
                 return func.Invoke(new LoginSession()
                 {
