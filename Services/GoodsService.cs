@@ -50,7 +50,7 @@ namespace Lelong.Services
                 new SqlParameter { ParameterName = "@OptionsStatus", Value = goodsItem.OptionsStatus, DbType = DbType.Int32 },
             };
             
-            var result = SqlHelper.ExecuteScalarWithInputDataTable(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "GoodsPublish_Insert", SetGoodsPhotoTable(goodsItem.listPhoto), param);
+            var result = SqlHelper.ExecuteScalarWithInputDataTable(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "GoodsPublish_Insert", SetGoodsPhotoTable(goodsItem.listPhoto), "GoodsPublishPhoto", param);
             return int.Parse(result.ToString());
         }
 

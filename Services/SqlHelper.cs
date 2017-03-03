@@ -1384,7 +1384,7 @@ namespace Lelong.Services
             return retval;
         }
 
-        public static object ExecuteScalarWithInputDataTable(SqlConnection connection, CommandType commandType, string commandText, DataTable tableInput, params SqlParameter[] commandParameters)
+        public static object ExecuteScalarWithInputDataTable(SqlConnection connection, CommandType commandType, string commandText, DataTable tableInput,string tableName, params SqlParameter[] commandParameters)
         {
             if (connection == null) throw new ArgumentNullException("connection");
 
@@ -1393,9 +1393,12 @@ namespace Lelong.Services
 
             bool mustCloseConnection = false;
             PrepareCommand(cmd, connection, (SqlTransaction)null, commandType, commandText, commandParameters, out mustCloseConnection);
-            cmd.Parameters.AddWithValue("@GoodsPublishPhoto", tableInput).SqlDbType = SqlDbType.Structured;
+            cmd.Parameters.AddWithValue("@"+tableName, tableInput).SqlDbType = SqlDbType.Structured;
 
             object retval;
+            SqlParameter returnParameter = cmd.Parameters.Add("RetVal", SqlDbType.Int);
+            returnParameter.Direction = ParameterDirection.ReturnValue;
+
             using (Track(cmd))
             {
                 // Execute the command & return the results
@@ -1407,6 +1410,8 @@ namespace Lelong.Services
 
             if (mustCloseConnection)
                 connection.Close();
+            if(retval!=null)
+            return (int)returnParameter.Value;
 
             return retval;
         }
