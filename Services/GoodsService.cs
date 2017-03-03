@@ -178,12 +178,12 @@ namespace Lelong.Services
 
         public static DataTable SetGoodsPhotoTable(List<GoodsPhoto> listGoodsPhoto)
         {
+          
             DataTable table = new DataTable();
-            //table.Columns.Add("PhotoId", typeof(int));
-            //table.Columns.Add("GoodPublishId", typeof(int));
             table.Columns.Add("PhotoName", typeof(string));
             table.Columns.Add("PhotoUrl", typeof(string));
             table.Columns.Add("PhotoDescription", typeof(string));
+            if (listGoodsPhoto == null || listGoodsPhoto.Count == 0) return table;
             foreach (GoodsPhoto photo in listGoodsPhoto)
             {
                 DataRow newRow = table.NewRow();
