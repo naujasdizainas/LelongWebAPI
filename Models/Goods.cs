@@ -23,7 +23,7 @@ namespace Lelong.Models
         public float CostPrice { get; set; }
         public string SaleType { get; set; }
 
-        public int Category { get; set; }
+        public string Category { get; set; }
         public int StoreCategory { get; set; }
         public string Brand { get; set; }
         public int ShipWithin { get; set; }

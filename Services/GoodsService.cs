@@ -26,7 +26,7 @@ namespace Lelong.Services
                 new SqlParameter { ParameterName = "@CostPrice", Value = (object)goodsItem.CostPrice??DBNull.Value, DbType = DbType.Double },
                 new SqlParameter { ParameterName = "@SaleType", Value = (object)goodsItem.SaleType??DBNull.Value, DbType = DbType.String },
 
-                new SqlParameter { ParameterName = "@Category", Value = goodsItem.Category, DbType = DbType.Int32 },
+                new SqlParameter { ParameterName = "@Category", Value = goodsItem.Category, DbType = DbType.String },
                 new SqlParameter { ParameterName = "@StoreCategory", Value = goodsItem.StoreCategory, DbType = DbType.Int32 },
                 new SqlParameter { ParameterName = "@Brand", Value = goodsItem.Brand, DbType = DbType.String },
                 new SqlParameter { ParameterName = "@ShipWithin", Value = goodsItem.ShipWithin, DbType = DbType.Int32 },
@@ -100,8 +100,8 @@ namespace Lelong.Services
         public static Goods ParseGoodsDataRow(DataRow dr,DataTable tablePhoto)
         {
             var goodsItem = new Goods();
-            goodsItem.GoodPublishId = Convert.ToInt32(dr["GoodPublishId"]);
-            goodsItem.UserId = Convert.ToInt32(dr["UserId"]);
+            goodsItem.GoodPublishId = dr["GoodPublishId"] == DBNull.Value? default(int) :Convert.ToInt32(dr["GoodPublishId"]);
+            goodsItem.UserId = dr["UserId"]==DBNull.Value?default(int): Convert.ToInt32(dr["UserId"]);
             goodsItem.Title = dr["Title"].ToString();
             goodsItem.Subtitle = dr["Subtitle"].ToString();
             goodsItem.Condition = dr["Condition"].ToString();
@@ -112,10 +112,10 @@ namespace Lelong.Services
             goodsItem.Msrp = dr["Msrp"] == DBNull.Value?default(float): float.Parse(dr["Msrp"].ToString());
             goodsItem.CostPrice = dr["CostPrice"] == DBNull.Value? default(float): float.Parse(dr["CostPrice"].ToString());
             goodsItem.SaleType =  dr["SaleType"].ToString();
-            goodsItem.Category = Convert.ToInt32(dr["Category"]);
-            goodsItem.StoreCategory = Convert.ToInt32(dr["StoreCategory"]);
+            goodsItem.Category = dr["Category"].ToString();
+            goodsItem.StoreCategory = dr["StoreCategory"] ==DBNull.Value? default(int): Convert.ToInt32(dr["StoreCategory"]);
             goodsItem.Brand = dr["Brand"].ToString();
-            goodsItem.ShipWithin = Convert.ToInt32(dr["ShipWithin"]);
+            goodsItem.ShipWithin = dr["ShipWithin"] == DBNull.Value? default(int): Convert.ToInt32(dr["ShipWithin"]);
             goodsItem.ModelSkuCode = dr["ModelSkuCode"].ToString();
             goodsItem.State = dr["State"].ToString();
             goodsItem.Link = dr["Link"].ToString();
@@ -123,16 +123,16 @@ namespace Lelong.Services
 
             goodsItem.Video = dr["Video"].ToString();
             goodsItem.VideoAlign = dr["VideoAlign"].ToString();
-            goodsItem.Active = Convert.ToInt32 (dr["Active"]);
-            goodsItem.Weight = Convert.ToInt32(dr["Weight"]);
-            goodsItem.Quantity = Convert.ToInt32(dr["Quantity"]);
+            goodsItem.Active = dr["Active"]==DBNull.Value? default(int): Convert.ToInt32 (dr["Active"]);
+            goodsItem.Weight = dr["Weight"]==DBNull.Value? default(int): Convert.ToInt32(dr["Weight"]);
+            goodsItem.Quantity = dr["Quantity"] == DBNull.Value?default(int): Convert.ToInt32(dr["Quantity"]);
             goodsItem.ShippingPrice = dr["ShippingPrice"].ToString();
             goodsItem.WhoPay = dr["WhoPay"].ToString();
             goodsItem.ShippingMethod = dr["ShippingMethod"].ToString();
             goodsItem.ShipToLocation = dr["ShipToLocation"].ToString();
             goodsItem.PaymentMethod = dr["PaymentMethod"].ToString();
-            goodsItem.GstType = Convert.ToInt32(dr["GstType"]);
-            goodsItem.OptionsStatus = Convert.ToInt32(dr["OptionsStatus"]);
+            goodsItem.GstType = dr["GstType"] == DBNull.Value?default(int): Convert.ToInt32(dr["GstType"]);
+            goodsItem.OptionsStatus = dr["OptionsStatus"]==DBNull.Value?default(int): Convert.ToInt32(dr["OptionsStatus"]);
 
             var listPhoto = new List<GoodsPhoto>();
             listPhoto.AddRange (from DataRow drItem in tablePhoto.Rows
