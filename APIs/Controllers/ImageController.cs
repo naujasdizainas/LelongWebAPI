@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Http;
+using System.Web.Mvc;
 using Lelong.Services;
 
 namespace APIs.Controllers
 {
-    [RoutePrefix("api/image")]
+    [System.Web.Http.RoutePrefix("api/image")]
     public class ImageController : BaseController
     {
-        [HttpPost]
-        [Route("upload")]
-        [AllowAnonymous]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("upload")]
+        [System.Web.Http.AllowAnonymous]
         public async Task<HttpResponseMessage> UploadImage(string guiIdGoods)
         {
             return Execute(session =>
@@ -76,14 +78,35 @@ namespace APIs.Controllers
 
         }
 
-        [HttpGet]
-        [Route("download")]
-        public string DownloadImage(string photoName)
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("download")]
+        public ActionResult DownloadImage(string photoName)
         {
             return Execute(session =>
             {
-                var imageUrl = ImageService.GetImageUrl(photoName);
-                return imageUrl;
+                var imagePath = ImageService.GetImageUrl(photoName);
+                var image = Image.FromFile(imagePath);
+
+                using (var ms = new MemoryStream())
+                {
+                    if (imagePath.Contains(".jpg"))
+                    {
+                        image.Save(ms, ImageFormat.Jpeg);
+                        return new FileContentResult(ms.ToArray(), "image/jpeg");
+                    }
+                    else if (imagePath.Contains(".gif"))
+                    {
+                        image.Save(ms, ImageFormat.Gif);
+                        return new FileContentResult(ms.ToArray(), "image/gif");
+                    }
+                    else if (imagePath.Contains(".png"))
+                    {
+                        image.Save(ms, ImageFormat.Png);
+                        return new FileContentResult(ms.ToArray(), "image/png");
+                    }
+                    
+                    return new FileContentResult(ms.ToArray(), "image/jpeg");
+                }
             });
         }
     }
