@@ -80,33 +80,13 @@ namespace APIs.Controllers
 
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("download")]
-        public ActionResult DownloadImage(string photoName)
+        public string DownloadImage(string photoName)
         {
             return Execute(session =>
             {
                 var imagePath = ImageService.GetImageUrl(photoName);
-                var image = Image.FromFile(imagePath);
 
-                using (var ms = new MemoryStream())
-                {
-                    if (imagePath.Contains(".jpg"))
-                    {
-                        image.Save(ms, ImageFormat.Jpeg);
-                        return new FileContentResult(ms.ToArray(), "image/jpeg");
-                    }
-                    else if (imagePath.Contains(".gif"))
-                    {
-                        image.Save(ms, ImageFormat.Gif);
-                        return new FileContentResult(ms.ToArray(), "image/gif");
-                    }
-                    else if (imagePath.Contains(".png"))
-                    {
-                        image.Save(ms, ImageFormat.Png);
-                        return new FileContentResult(ms.ToArray(), "image/png");
-                    }
-                    
-                    return new FileContentResult(ms.ToArray(), "image/jpeg");
-                }
+                return imagePath;
             });
         }
     }

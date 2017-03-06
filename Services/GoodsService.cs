@@ -174,7 +174,7 @@ namespace Lelong.Services
             goodsPhotoItem.PhotoId = Convert.ToInt32(dr["PhotoId"]);
             goodsPhotoItem.GoodPublishId = Convert.ToInt32(dr["GoodPublishId"]);
             goodsPhotoItem.PhotoName = dr["PhotoName"].ToString();
-            goodsPhotoItem.PhotoUrl = dr["PhotoUrl"].ToString();
+            goodsPhotoItem.PhotoUrl = dr["PhotoUrl"].ToString().Replace("E:\\Builds\\LelongApi", "https://1f71ef25.ngrok.io/");
             goodsPhotoItem.PhotoDescription = dr["PhotoDescription"].ToString();
             return goodsPhotoItem;
         }
