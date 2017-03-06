@@ -76,7 +76,7 @@
             <div class="portlet box blue">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-cogs"></i>List Goods Publish
+                        <i class="fa fa-tags"></i>List Goods Publish
                     </div>
                     <div class="tools">
                         <a href="javascript:;" class="collapse" data-original-title="" title="Goods Publish"> </a>
@@ -88,41 +88,23 @@
                             <thead>
                                 <tr>
                                     <th> # </th>
-                                    <th> Table heading </th>
-                                    <th> Table heading </th>
-                                    <th> Table heading </th>
-                                    <th> Table heading </th>
-                                    <th> Table heading </th>
-                                    <th> Table heading </th>
+                                    <th> Name </th>
+                                    <th> Condition </th>
+                                    <th> Price </th>
+                                    <th> SalePrice </th>
+                                    <th> Category </th>
+                                    <th> Description </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td> 1 </td>
-                                    <td> Table cell </td>
-                                    <td> Table cell </td>
-                                    <td> Table cell </td>
-                                    <td> Table cell </td>
-                                    <td> Table cell </td>
-                                    <td> Table cell </td>
-                                </tr>
-                                <tr>
-                                    <td> 2 </td>
-                                    <td> Table cell </td>
-                                    <td> Table cell </td>
-                                    <td> Table cell </td>
-                                    <td> Table cell </td>
-                                    <td> Table cell </td>
-                                    <td> Table cell </td>
-                                </tr>
-                                <tr>
-                                    <td> 3 </td>
-                                    <td> Table cell </td>
-                                    <td> Table cell </td>
-                                    <td> Table cell </td>
-                                    <td> Table cell </td>
-                                    <td> Table cell </td>
-                                    <td> Table cell </td>
+                                <tr ng-repeat="g in listGoods">
+                                    <td> {{g.ID}} </td>
+                                    <td> {{g.Title}} </td>
+                                    <td> {{g.Condition}} </td>
+                                    <td> {{g.Price}} </td>
+                                    <td> {{g.SalePrice}} </td>
+                                    <td> {{g.Category}} </td>
+                                    <td> {{g.Description}} </td>
                                 </tr>
                             </tbody>
                         </table>
