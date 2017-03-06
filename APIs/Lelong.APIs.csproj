@@ -121,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\assets\images\lelong-logo.png" />
     <Content Include="app\assets\plugins\angular-cookie\angular-cookie.min.js" />
     <Content Include="app\assets\plugins\angular-file-saver\angular-file-saver.bundle.js" />
     <Content Include="app\assets\plugins\angular-file-saver\angular-file-saver.bundle.min.js" />
@@ -489,7 +490,6 @@
     <Folder Include="app\assets\admin\" />
     <Folder Include="app\assets\css\" />
     <Folder Include="app\assets\global\" />
-    <Folder Include="app\assets\images\" />
     <Folder Include="app\assets\js\" />
     <Folder Include="app\services\" />
     <Folder Include="app\templates\" />
