@@ -128,7 +128,7 @@ CREATE PROCEDURE [dbo].[GoodsPublishPhoto_Get_Url]
 	@Name VARCHAR(200)  
 AS 
 BEGIN 
-     SELECT * FROM dbo.GoodsPublishPhoto WHERE PhotoName = @Name
+     SELECT PhotoUrl FROM dbo.GoodsPublishPhoto WHERE PhotoName = @Name
 END 
 GO 
 ------------------------------------------------
