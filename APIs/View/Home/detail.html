@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>Pulse - Support Tool</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="Pulse QA Support Tool" name="description" />
+    <meta content="Phuc.Do" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+
+    <link href="/app/assets/plugins/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/app/assets/plugins/simple-line-icons-2.3.2/css/simple-line-icons.css" rel="stylesheet" />
+    <link href="/app/assets/plugins/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <link href="/app/assets/plugins/icheck/css/minimal/blue.css" rel="stylesheet" />
+    <link href="/app/assets/plugins/angular-loading-bar/loading-bar.min.css" rel="stylesheet" />
+    <link href="/app/assets/plugins/date-picker/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+    <link href="/app/assets/plugins/date-picker/css/datetimepicker.css" rel="stylesheet" />
+    <!-- icheck -->
+    <link href="/app/assets/plugins/icheck/css/square/blue.css" rel="stylesheet" />
+    <link href="/app/assets/plugins/icheck/css/minimal/minimal.css" rel="stylesheet" />
+    <link href="/app/assets/plugins/chosen/css/chosen.css" rel="stylesheet" />
+    <link href="/app/assets/plugins/chosen/css/caddy.chosen.css" rel="stylesheet" />
+
+    <!-- bootstrap-switch -->
+    <link href="/app/assets/plugins/bootstrap-switch/css/bootstrap2/bootstrap-switch.min.css" rel="stylesheet" />
+
+    <!-- BEGIN THEME STYLES -->
+    <link href="/app/assets/global/css/components.css" rel="stylesheet" type="text/css" />
+    <link href="/app/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="/app/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="/app/assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="/app/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
+    <link href="/app/assets/css/site.css" rel="stylesheet" />
+    <!-- END THEME STYLES -->
+    
+
+</head>
+<body class="page-header-fixed page-quick-sidebar-over-content " ng-app="LelongApi.app" ng-controller="detailCtrl" ng-init="initdetail()">
+    <!-- BEGIN HEADER -->
+    <div ng-class="result">{{message}}</div>
+    <div class="page-header navbar navbar-fixed-top">
+        <!-- BEGIN HEADER INNER -->
+        <div class="page-header-inner">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo">
+                <a href="/" class="logo-wrapper">
+                    <img src="/app/assets/images/lelong-logo.png" alt="logo" class="logo" />
+                </a>
+                <div class="menu-toggler sidebar-toggler hide">
+                    <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                </div>
+            </div>
+            <!-- END LOGO -->
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+          
+
+        </div>
+        <!-- END HEADER INNER -->
+    </div>
+    <!-- END HEADER -->
+    <div class="clearfix">
+    </div>
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+        <div style="width:100%;height:100%;background-color:white; min-height: 850px;">
+
+            <div class="portlet box blue">
+                <div class="portlet-title">
+                    <div class="caption" style="float:none !important">
+                        <div class="center-div" ng-show="goodPublishId != undefined">
+                            <i class="fa fa-tags"></i> Update Goods Publish
+                        </div>
+                        <div class="center-div" ng-show="goodPublishId == undefined">
+                            <i class="fa fa-tags"></i> Add New Goods Publish
+                        </div>
+                    </div>                   
+                   
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Title<label class="input-required"> * </label><label class="input-required" ng-show="hasError">This field is required</label></label>
+                        <div class="col-md-5">
+                            <input type="text" placeholder="Title" autofocus ng-model="goodItem.Title" required style="color:black;width:100%" value="{{goodItem.Title}}" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Category</label>
+                        <div class="col-md-5" ng-show="editMode==true || goodItem.Category.length" ng-model="goodItem.Category">
+                            {{goodItem.Category}}
+                        </div>
+                       
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label"></label>
+                        <div class="col-md-5" ng-click="showPopup()">
+                            <button class="btn btn-default">
+                                Choose category
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Condition<label class="input-required"> * </label><label class="input-required" ng-show="hasError">This field is required</label></label>
+                        <div class="col-md-5">
+                            <input type="text" placeholder="Condition" ng-model="goodItem.Condition" required style="color:black;width:100%" value="{{goodItem.Condition}}">
+                        </div>
+                    </div>   
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Brand</label>
+                        <div class="col-md-5">
+                            <input type="text" placeholder="Brand" ng-model="goodItem.Brand" style="color:black;width:100%" value="{{goodItem.Condition}}" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Quantity<label class="input-required"> * </label><label class="input-required" ng-show="hasError">This field is required</label></label>
+                        <div class="col-md-5">
+                            <input type="number" placeholder="Quantity" ng-model="goodItem.Quantity" required style="color:black;width:100%" value="{{goodItem.Quantity}}" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">SalePrice<label class="input-required"> * </label><label class="input-required" ng-show="hasError">This field is required</label></label>
+                        <div class="col-md-5">
+                            <input type="number" placeholder="SalePrice" ng-model="goodItem.SalePrice" required style="color:black; width:100%" value="{{goodItem.SalePrice}}" />
+                        </div>
+                    </div>
+                    <button ng-click="goBack()" class="btn btn-primary glyphicon glyphicon-arrow-left"></button>
+                    <button ng-click="save()" class="btn btn-primary" style="float:right">Submit</button>
+                </div>                
+            </div>
+        </div>
+    </div>
+    <!-- END CONTAINER -->
+    <!-- BEGIN FOOTER -->
+    <div class="page-footer">
+        <div class="page-footer-inner">
+            2017 - Lelong.my&copy;inc.
+        </div>
+        <div class="page-footer-tools">
+            <span class="go-top">
+                <i class="fa fa-angle-up"></i>
+            </span>
+        </div>
+    </div>
+    <!-- END FOOTER -->
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+    <!-- BEGIN CORE PLUGINS -->
+    <script src="/app/assets/plugins/jquery-2.2.4/jquery.js"></script>
+    <script src="/app/assets/plugins/jquery-ui/jquery-ui.js"></script>
+    <script src="/app/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
+    <script src="/app/assets/plugins/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script src="/app/assets/plugins/angularjs-1.5.x/angular.min.js"></script>
+    <script src="/app/assets/plugins/angularjs-1.5.x/angular-animate.min.js"></script>
+    <script src="/app/assets/plugins/angularjs-1.5.x/angular-sanitize.js"></script>
+    <script src="/app/assets/js/Base64.js"></script>
+    <script src="/app/assets/plugins/lodash-4.13.1/lodash.js"></script>
+    <script src="/app/assets/js/Util.js"></script>
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="/app/assets/plugins/momentjs-2.14.1/moment.min.js"></script>
+    <script src="/app/assets/plugins/icheck/js/icheck.min.js"></script>
+    <script src="/app/assets/plugins/icheck/icheck.js"></script>
+    <script src="/app/assets/plugins/angular-cookie/angular-cookie.min.js"></script>
+    <script src="/app/assets/plugins/UI Bootstrap/ui-bootstrap-tpls-1.3.3.min.js"></script>
+    <script src="/app/assets/plugins/angular-loading-bar/loading-bar.min.js"></script>
+    <script src="/app/assets/plugins/angular-paging/paging.min.js"></script>
+    <script src="/app/assets/plugins/date-picker/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="/app/assets/plugins/date-picker/ng-eternicode-datepicker.js"></script>
+    <script src="/app/assets/plugins/date-picker/js/datetimepicker.js"></script>
+    <script src="/app/assets/plugins/chosen/js/chosen.jquery.min.js"></script>
+    <script src="/app/assets/plugins/chosen/chosen.js"></script>
+
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="/app/assets/global/scripts/metronic.js" type="text/javascript"></script>
+    <script src="/app/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+    <script src="/app/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+
+    <script src="/app/app.js"></script>
+    <script src="/app/components/Home/home.js"></script>
+    <script src="/app/components/Home/detail.js"></script>
+
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <script>
+        jQuery(document).ready(function() {
+            Metronic.init(); // init metronic core componets
+            Layout.init(); // init layout
+            QuickSidebar.init(); // init quick sidebar
+        });
+    </script>
+    <!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
