@@ -179,6 +179,28 @@ GO
 --END 
 --GO 
 ------------------------------------------------
+-- sp GoodsPublishPhoto Select By GoodsId
+IF EXISTS (SELECT * FROM sys.objects  
+			WHERE  object_id = OBJECT_ID(N'[dbo].[GoodsPublishPhoto_SelectByGoodsId]') AND type IN (N'P', N'PC')) 
+DROP PROCEDURE [dbo].[GoodsPublishPhoto_SelectByGoodsId] 
+GO 
+-- =============================================
+-- Author:		ThaoND
+-- Create date: 24-Feb-2017
+-- Description:	GoodsPublishPhoto select by GoodsId
+-- =============================================
+CREATE PROCEDURE [dbo].[GoodsPublishPhoto_SelectByGoodsId] 
+	@GoodsId INT 
+AS 
+BEGIN 
+	SELECT 
+		[PhotoId], [GoodPublishId], [PhotoName], 
+		[PhotoUrl], [PhotoDescription]  
+	FROM [dbo].[GoodsPublishPhoto] 
+	WHERE [GoodPublishId] = @GoodsId
+END 
+GO 
+------------------------------------------------
 -- sp GoodsPublishPhoto Select By List GoodsId
 IF EXISTS (SELECT * FROM sys.objects  
 			WHERE  object_id = OBJECT_ID(N'[dbo].[GoodsPublishPhoto_SelectByListGoodsId]') AND type IN (N'P', N'PC')) 
@@ -187,7 +209,7 @@ GO
 ---- =============================================
 ---- Author:		ThaoND
 ---- Create date: 24-Feb-2017
----- Description:	GoodsPublishPhoto select by GoodsId
+---- Description:	GoodsPublishPhoto select by List GoodsId
 ---- =============================================
 --CREATE PROCEDURE [dbo].[GoodsPublishPhoto_SelectByListGoodsId] 
 --	@ListGoodsId VARCHAR(1000) 
