@@ -425,6 +425,7 @@
     <Content Include="SQL Script\04.sp_Lelong_User.sql" />
     <Content Include="SQL Script\05.sp_Lelong_Wizard.sql" />
     <Content Include="SQL Script\06.Lelong_Function.sql" />
+    <Content Include="View\Home\detail.html" />
     <Content Include="View\Home\home.html" />
     <Content Include="Web.config" />
   </ItemGroup>
