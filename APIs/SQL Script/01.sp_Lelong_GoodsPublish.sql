@@ -227,6 +227,131 @@ BEGIN
 END 
 GO 
 ----------------------------------------------
+-- sp GoodsPublish Update
+IF EXISTS (SELECT * FROM sys.objects  
+			WHERE  object_id = OBJECT_ID(N'[dbo].[GoodsPublish_Update]') AND type IN (N'P', N'PC')) 
+DROP PROCEDURE [dbo].[GoodsPublish_Update] 
+GO 
+---- type PhotoTableType 
+IF EXISTS (SELECT * FROM sys.types WHERE is_user_defined = 1 AND NAME = 'PhotoTypeUpd') 
+DROP TYPE [dbo].[PhotoTypeUpd]
+GO
+CREATE TYPE [dbo].[PhotoTypeUpd] AS TABLE 
+(
+	[PhotoId] INT,   
+	[GoodPublishId] INT, 
+	[PhotoName] NVARCHAR(255), 
+	[PhotoUrl] VARCHAR(255), 
+	[PhotoDescription] NVARCHAR(500) 
+)
+GO 
+-- =============================================
+-- Author:		ThaoND
+-- Create date: 24-Feb-2017
+-- Description:	GoodsPublish Update
+-- =============================================
+CREATE PROCEDURE [dbo].[GoodsPublish_Update] 
+	@GoodPublishId INT, 
+	@UserId INT, 
+	@Title NVARCHAR(255), 
+	@SubTitle NVARCHAR(255), 
+	@Condition NVARCHAR(255),
+	@Guid VARCHAR(50), 
+	@Price REAL, 
+	@SalePrice REAL, 
+	@Msrp REAL, 
+	@CostPrice REAL, 
+	@SaleType NVARCHAR(255), 
+	-- 
+	@Category INT, 
+	@StoreCategory INT, 
+	@Brand NVARCHAR(255), 
+	@ShipWithin INT, 
+	@ModelSkuCode NVARCHAR(255), 
+	@State NVARCHAR(255), 
+	@Link NVARCHAR(500), 
+	@Description NVARCHAR(1024), 
+	-- 
+	@Video NVARCHAR(500), 
+	@VideoAlign NVARCHAR(255), 
+	@Active INT, 
+	@Weight INT, 
+	@Quantity INT, 
+	-- 
+	@ShippingPrice NVARCHAR(255), 
+	@WhoPay NVARCHAR(255), 
+	@ShippingMethod NVARCHAR(255), 
+	@ShipToLocation NVARCHAR(255), 
+	@PaymentMethod NVARCHAR(255), 
+	@GstType INT, 
+	@OptionsStatus INT, 
+	@LastSync DATE, 
+	@GoodsPublishPhoto [dbo].[PhotoTypeUpd] READONLY 
+AS 
+BEGIN 
+	BEGIN TRY 
+		BEGIN TRANSACTION 
+		UPDATE [dbo].[GoodsPublish] SET 
+			[UserId] = @UserId, 
+			[Title] = @Title, 
+			[SubTitle] = @SubTitle, 
+			[Condition] = @Condition, 
+			[Guid] = @Guid, 
+			[Price] = @Price, 
+			[SalePrice] = @SalePrice, 
+			[Msrp] = @Msrp, 
+			[CostPrice] = @CostPrice, 
+			[SaleType] = @SaleType, 
+			-- 
+			[Category] = @Category, 
+			[StoreCategory] = @StoreCategory, 
+			[Brand] = @Brand, 
+			[ShipWithin] = @ShipWithin, 
+			[ModelSkuCode] = @ModelSkuCode, 
+			[State] = @State, 
+			[Link] = @Link, 
+			[Description] = @Description, 
+			-- 
+			[Video] = @Video, 
+			[VideoAlign] = @VideoAlign, 
+			[Active] = @Active, 
+			[Weight] = @Weight, 
+			[Quantity] = @Quantity, 
+			-- 
+			[ShippingPrice] = @ShippingPrice, 
+			[WhoPay] = @WhoPay, 
+			[ShippingMethod] = @ShippingMethod, 
+			[ShipToLocation] = @ShipToLocation, 
+			[PaymentMethod] = @PaymentMethod, 
+			[GstType] = @GstType, 
+			[OptionsStatus] = @OptionsStatus, 
+			[LastEdited] = GETDATE(), 
+			[LastSync] = @LastSync 
+		WHERE [GoodPublishId] = @GoodPublishId 
+		--- Update Photo
+		UPDATE [dbo].[GoodsPublishPhoto] SET 
+			[PhotoName] = P.[PhotoName],  
+			[PhotoUrl] = P.[PhotoUrl], 
+			[PhotoDescription] = P.[PhotoDescription] 
+		FROM [dbo].[GoodsPublishPhoto] GP
+		INNER JOIN @GoodsPublishPhoto P ON GP.PhotoId = P.PhotoId
+		WHERE GP.[GoodPublishId] = @GoodPublishId 
+		  
+		COMMIT TRANSACTION 
+	END TRY 
+	BEGIN CATCH 
+		--Raise Error 
+		DECLARE @ErrMsg NVARCHAR(4000), @ErrSeverity INT, @ErrState INT 
+		SELECT @ErrMsg = ERROR_NUMBER() + '- (' + ERROR_PROCEDURE() + '): ' + ERROR_MESSAGE(), 
+			@ErrSeverity = ERROR_SEVERITY(), @ErrState = ERROR_STATE() 
+
+		RAISERROR(@ErrMsg, @ErrSeverity, @ErrState) 
+		--Rollback
+		IF (@@TRANCOUNT > 0) ROLLBACK TRANSACTION
+	END CATCH
+END 
+GO 
+------------------------------------------------
 -- sp GoodsPublish Select By Id
 IF EXISTS (SELECT * FROM sys.objects  
 			WHERE  object_id = OBJECT_ID(N'[dbo].[GoodsPublish_SelectById]') AND type IN (N'P', N'PC')) 
@@ -276,10 +401,14 @@ BEGIN
 		[ShipToLocation], 
 		[PaymentMethod], 
 		[GstType], 
-		[OptionsStatus] 
+		[OptionsStatus], 
+		[CreatedDate], 
+		[LastEdited], 
+		[LastSync] 
 	FROM [dbo].[GoodsPublish] G 
-	WHERE G.[GoodPublishId] = @GoodPublishId 
-	  AND G.[UserId] = @UserId 
+	WHERE [GoodPublishId] = @GoodPublishId 
+	  AND [UserId] = @UserId 
+	  AND [Active] <> 0 
 	-- Get photo by Goods Id
 	SELECT 
 		P.[PhotoId], 
@@ -290,6 +419,7 @@ BEGIN
 	INNER JOIN [dbo].[GoodsPublish] G ON P.[GoodPublishId] = G.[GoodPublishId] 
 	WHERE P.[GoodPublishId] = @GoodPublishId 
 	  AND G.[UserId] = @UserId 
+	  AND G.[Active] <> 0
 END 
 GO 
 ------------------------------------------------
@@ -342,10 +472,14 @@ BEGIN
 		[ShipToLocation], 
 		[PaymentMethod], 
 		[GstType], 
-		[OptionsStatus]
+		[OptionsStatus], 
+		[CreatedDate], 
+		[LastEdited], 
+		[LastSync] 
 	FROM [dbo].[GoodsPublish] G	
 	WHERE G.[Guid] = @Guid 
 	  AND G.[UserId] = @UserId 
+	  AND [Active] <> 0 
 	-- 
 	SELECT 
 		[PhotoId], 
@@ -358,6 +492,7 @@ BEGIN
 	INNER JOIN [dbo].[GoodsPublish] G ON P.[GoodPublishId] = G.[GoodPublishId] 
 	WHERE G.[Guid] = @Guid 
 	  AND G.[UserId] = @UserId 
+	  AND [Active] <> 0 
 END 
 GO 
 ------------------------------------------------
@@ -410,13 +545,17 @@ BEGIN
 		[ShipToLocation], 
 		[PaymentMethod], 
 		[GstType], 
-		[OptionsStatus]
+		[OptionsStatus], 
+		[CreatedDate], 
+		[LastEdited], 
+		[LastSync] 
 	FROM [dbo].[GoodsPublish] G	
 	WHERE [GoodPublishId] IN (
 		SELECT [GoodPublishId] FROM [dbo].[GoodsPublish] P
 		/*WHERE [Guid] IN(SELECT [Data] FROM [dbo].[fn_Split](@ListGuid, ','))*/
 		INNER JOIN [dbo].[fn_Split](@ListGuid, ',') S ON P.[Guid] = S.[Data]) 
 	AND G.[UserId] = @UserId 
+	AND [Active] <> 0 
 	-- 
 	SELECT [PhotoId], G.[GoodPublishId], [PhotoName], [PhotoUrl], [PhotoDescription]  
 	FROM [dbo].[GoodsPublishPhoto] P 
@@ -426,6 +565,7 @@ BEGIN
 		/*WHERE [Guid] IN(SELECT [Data] FROM [dbo].[fn_Split](@ListGuid, ','))*/
 		INNER JOIN [dbo].[fn_Split](@ListGuid, ',') S ON G1.[Guid] = S.[Data]) 
 	AND G.[UserId] = @UserId 
+	AND [Active] <> 0 
 END 
 GO 
 ------------------------------------------------
@@ -477,14 +617,19 @@ BEGIN
 		[ShipToLocation], 
 		[PaymentMethod], 
 		[GstType], 
-		[OptionsStatus] 
+		[OptionsStatus], 
+		[CreatedDate], 
+		[LastEdited], 
+		[LastSync]  
 	FROM [dbo].[GoodsPublish] 
 	WHERE [UserId] = @UserId 
+	  AND [Active] <> 0 
 	-- 
 	SELECT [PhotoId], G.[GoodPublishId], [PhotoName], [PhotoUrl], [PhotoDescription]  
 	FROM [dbo].[GoodsPublishPhoto] P 
 	INNER JOIN [dbo].[GoodsPublish] G ON P.[GoodPublishId] = G.[GoodPublishId] 
 	WHERE G.[UserId] = @UserId 
+	  AND [Active] <> 0 
 END 
 GO 
 ------------------------------------------------
