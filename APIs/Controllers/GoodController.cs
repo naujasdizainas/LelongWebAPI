@@ -30,6 +30,13 @@ namespace APIs.Controllers
             return Execute (session => GoodsService.GetListGoods(guids, session.User.UserId)) ;
         }
 
+        [HttpGet]
+        [Route("selectById")]
+        public Goods SelectById(int goodId)
+        {
+            return Execute(session => GoodsService.SelectById(goodId, session.User.UserId));
+        }
+
         [HttpPost]
         [Route("publish")]
         // input: object GoodsData --> Return Id of Goods published.
@@ -42,6 +49,21 @@ namespace APIs.Controllers
                 return goodsId;
             });
            
+        }
+
+        [HttpPost]
+        [Route("saveGoods")]
+        // input: object GoodsData --> Return Id of Goods published.
+        public int SaveGoods(Goods goodsItem)
+        {
+            return Execute(session =>
+            {
+                goodsItem.Guid = Guid.NewGuid().ToString();
+                goodsItem.UserId = session.User.UserId;
+                var goodsId = GoodsService.PublishGoods(goodsItem);
+                return goodsId;
+            });
+
         }
 
         [HttpPut]

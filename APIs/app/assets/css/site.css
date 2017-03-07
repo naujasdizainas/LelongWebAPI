@@ -78,3 +78,16 @@ table thead tr th.sortable {
     .key {
         color: red;
     }
+
+ .center-div {
+  width: 50%;
+  margin: 0 auto;
+  display: inline-block;
+  min-width: 300px;
+}
+
+ .right-left-btn{
+     border-radius: 5px !important;
+     margin: 5px 5px 5px calc(100% - 21em);
+     display: inline-block;
+ }

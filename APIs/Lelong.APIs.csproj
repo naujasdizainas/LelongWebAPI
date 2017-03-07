@@ -411,6 +411,7 @@
     <Content Include="app\assets\plugins\zipjs\zip-ext.js" />
     <Content Include="app\assets\plugins\zipjs\zip-fs.js" />
     <Content Include="app\assets\plugins\zipjs\zip.js" />
+    <Content Include="app\components\Home\detail.js" />
     <Content Include="app\components\Home\home.js" />
     <Content Include="app\directives\appDirectives.js" />
     <Content Include="Global.asax" />

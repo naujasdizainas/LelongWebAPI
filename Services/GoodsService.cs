@@ -54,6 +54,26 @@ namespace Lelong.Services
             return int.Parse(result.ToString());
         }
 
+        public static int SaveGoods(Goods goodsItem)
+        {
+            var param = new[]
+            {
+                new SqlParameter { ParameterName = "@UserId", Value = (object)goodsItem.UserId ?? DBNull.Value, DbType = DbType.Int32 },
+                new SqlParameter { ParameterName = "@Title", Value = (object)goodsItem.Title??DBNull.Value, DbType = DbType.String },
+                new SqlParameter { ParameterName = "@Condition", Value = (object)goodsItem.Condition??DBNull.Value, DbType = DbType.String },
+                new SqlParameter { ParameterName = "@Guid", Value = Guid.NewGuid(), DbType = DbType.String },
+                new SqlParameter { ParameterName = "@SalePrice", Value = (object)goodsItem.SalePrice??DBNull.Value, DbType = DbType.Double },
+                
+                new SqlParameter { ParameterName = "@Category", Value = goodsItem.Category, DbType = DbType.String },
+                new SqlParameter { ParameterName = "@Brand", Value = goodsItem.Brand, DbType = DbType.String },
+              
+                new SqlParameter { ParameterName = "@Quantity", Value = goodsItem.Quantity, DbType = DbType.Int32 }              
+            };
+
+            var result = SqlHelper.ExecuteScalarWithInputDataTable(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "GoodsPublish_Update", SetGoodsPhotoTable(goodsItem.listPhoto), "GoodsPublishPhoto", param);
+            return int.Parse(result.ToString());
+        }
+
         public static void DeleteGoods(string guid)
         {
             var param = new[]
@@ -80,6 +100,25 @@ namespace Lelong.Services
                 results.AddRange(from DataRow dr in dts.Tables[0].Rows select ParseGoodsDataRow(dr, tablePhoto));
             }
             return results;
+        }
+
+        public static Goods SelectById(int GoodPublishId, int userId)
+        {
+            var results = new List<Goods>();
+            var param = new[]
+            {
+                new SqlParameter { ParameterName = "@GoodPublishId", Value = GoodPublishId, DbType = DbType.Int32 },
+                new SqlParameter { ParameterName = "@UserId", Value = userId, DbType = DbType.Int32 },
+            };
+            DataSet dts = SqlHelper.ExecuteDataset(Config.ConnectionString, CommandType.StoredProcedure, "GoodsPublish_SelectById", param);
+
+            var tablePhoto = dts.Tables[1];
+
+            if (dts != null && dts.Tables[0] != null && dts.Tables[0].Rows.Count > 0)
+            {
+                results.AddRange(from DataRow dr in dts.Tables[0].Rows select ParseGoodsDataRow(dr, tablePhoto));
+            }
+            return results.FirstOrDefault();
         }
 
         public static IList<Goods> GetListGoods(List<string> guids,int userId)
