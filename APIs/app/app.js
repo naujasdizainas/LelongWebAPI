@@ -1,6 +1,6 @@
 ﻿
 angular.module('LelongApi.app.home', [
-    
+      'templates'
 ]);
 
 /*--------------------- Main App ---------------------*/

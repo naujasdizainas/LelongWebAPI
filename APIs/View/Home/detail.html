@@ -46,7 +46,7 @@
 </head>
 <body class="page-header-fixed page-quick-sidebar-over-content " ng-app="LelongApi.app" ng-controller="detailCtrl" ng-init="initdetail()">
     <!-- BEGIN HEADER -->
-    <div ng-class="result">{{message}}</div>
+    
     <div class="page-header navbar navbar-fixed-top">
         <!-- BEGIN HEADER INNER -->
         <div class="page-header-inner">
@@ -71,9 +71,8 @@
     </div>
     <!-- BEGIN CONTAINER -->
     <div class="page-container">
-        <div style="width:100%;height:100%;background-color:white; min-height: 850px;">
-
-            <div class="portlet box blue">
+        <div style="width:100%;height:100%;background-color:#f5f5f5; min-height: 850px;">
+            <div class="portlet box">
                 <div class="portlet-title">
                     <div class="caption" style="float:none !important">
                         <div class="center-div" ng-show="goodPublishId != undefined">
@@ -82,56 +81,50 @@
                         <div class="center-div" ng-show="goodPublishId == undefined">
                             <i class="fa fa-tags"></i> Add New Goods Publish
                         </div>
-                    </div>                   
-                   
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Title<label class="input-required"> * </label><label class="input-required" ng-show="hasError">This field is required</label></label>
-                        <div class="col-md-5">
-                            <input type="text" placeholder="Title" autofocus ng-model="goodItem.Title" required style="color:black;width:100%" value="{{goodItem.Title}}" />
+                    </div>
+                    <hr />
+                    <div ng-class="result">{{message}}</div>
+                    <div class="form-group row row-new-style">
+                        <label class="col-sm-2 col-form-label">Title *</label>
+                        <div class="col-md-10">
+                            <input id="txtTitle" type="text" placeholder="Title" autofocus ng-model="goodItem.Title" required style="color:black;width:100%" value="{{goodItem.Title}}" />
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row row-new-style">
                         <label class="col-sm-2 col-form-label">Category</label>
-                        <div class="col-md-5" ng-show="editMode==true || goodItem.Category.length" ng-model="goodItem.Category">
-                            {{goodItem.Category}}
-                        </div>
-                       
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label"></label>
-                        <div class="col-md-5" ng-click="showPopup()">
-                            <button class="btn btn-default">
-                                Choose category
-                            </button>
+                        <div class="col-md-10">
+                            <multiple-autocomplete style="float:left;width:100%" ng-model="curLstCategory"
+                                                   object-property="name"
+                                                   suggestions-arr="defaultCategory">
+                            </multiple-autocomplete>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Condition<label class="input-required"> * </label><label class="input-required" ng-show="hasError">This field is required</label></label>
-                        <div class="col-md-5">
-                            <input type="text" placeholder="Condition" ng-model="goodItem.Condition" required style="color:black;width:100%" value="{{goodItem.Condition}}">
+                    <div class="form-group row row-new-style">
+                        <label class="col-sm-2 col-form-label">Condition *</label>
+                        <div class="col-md-10">
+                            <input type="text" id="txtCondition" placeholder="Condition" ng-model="goodItem.Condition" required style="color:black;width:100%" value="{{goodItem.Condition}}">
                         </div>
-                    </div>   
-                    <div class="form-group row">
+                    </div>
+                    <div class="form-group row row-new-style">
                         <label class="col-sm-2 col-form-label">Brand</label>
-                        <div class="col-md-5">
-                            <input type="text" placeholder="Brand" ng-model="goodItem.Brand" style="color:black;width:100%" value="{{goodItem.Condition}}" />
+                        <div class="col-md-10">
+                            <input type="text" placeholder="Brand" ng-model="goodItem.Brand" style="color:black;width:100%" value="{{goodItem.Brand}}" />
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Quantity<label class="input-required"> * </label><label class="input-required" ng-show="hasError">This field is required</label></label>
-                        <div class="col-md-5">
-                            <input type="number" placeholder="Quantity" ng-model="goodItem.Quantity" required style="color:black;width:100%" value="{{goodItem.Quantity}}" />
+                    <div class="form-group row row-new-style">
+                        <label class="col-sm-2 col-form-label">Quantity *</label>
+                        <div class="col-md-3">
+                            <input type="number" id="txtQuantity" placeholder="Quantity" ng-model="goodItem.Quantity" required style="color:black;width:100%" value="{{goodItem.Quantity}}" />
+                        </div>
+                        <label class="col-sm-2 col-form-label">SalePrice *</label>
+                        <div class="col-md-3">
+                            <input type="number" id="txtSalePrice" placeholder="SalePrice" ng-model="goodItem.SalePrice" required style="color:black; width:100%" value="{{goodItem.SalePrice}}" />
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">SalePrice<label class="input-required"> * </label><label class="input-required" ng-show="hasError">This field is required</label></label>
-                        <div class="col-md-5">
-                            <input type="number" placeholder="SalePrice" ng-model="goodItem.SalePrice" required style="color:black; width:100%" value="{{goodItem.SalePrice}}" />
-                        </div>
-                    </div>
+                    <hr />
                     <button ng-click="goBack()" class="btn btn-primary glyphicon glyphicon-arrow-left"></button>
-                    <button ng-click="save()" class="btn btn-primary" style="float:right">Submit</button>
-                </div>                
+                    <button ng-click="save()" class="btn btn-primary" style="float:right; margin-right: 15px;">Submit</button>
+                </div>
             </div>
         </div>
     </div>
@@ -180,11 +173,13 @@
     <script src="/app/assets/global/scripts/metronic.js" type="text/javascript"></script>
     <script src="/app/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
     <script src="/app/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
-
+    <script src="/app/directives/multiple-autocomplete-field/multiple-select.min.js"></script>
+    <link href="/app/directives/multiple-autocomplete-field/multiple-select.min.css" rel="stylesheet">  
+    
     <script src="/app/app.js"></script>
-    <script src="/app/components/Home/home.js"></script>
     <script src="/app/components/Home/detail.js"></script>
 
+    <script src="/app/directives/multiple-autocomplete-field/multiple-autocomplete-field.js"></script> 
     <!-- END PAGE LEVEL SCRIPTS -->
     <script>
         jQuery(document).ready(function() {

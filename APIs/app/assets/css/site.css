@@ -91,3 +91,7 @@ table thead tr th.sortable {
      margin: 5px 5px 5px calc(100% - 21em);
      display: inline-block;
  }
+
+ .row-new-style{
+     margin-right : 0px !important;
+ }

@@ -58,7 +58,11 @@ namespace APIs.Controllers
         {
             return Execute(session =>
             {
-                goodsItem.Guid = Guid.NewGuid().ToString();
+                if (goodsItem.Guid == null)
+                {
+                    goodsItem.Guid = Guid.NewGuid().ToString();
+                }
+                
                 goodsItem.UserId = session.User.UserId;
                 var goodsId = GoodsService.PublishGoods(goodsItem);
                 return goodsId;
@@ -78,6 +82,16 @@ namespace APIs.Controllers
                 }
                 
                 return true;
+            });
+        }
+
+        [HttpDelete]
+        [Route("deleteGoods")]
+        public Boolean DeleteGoodsChild(string guid)
+        {
+            return Execute(session =>
+            {
+                return GoodsService.DeleteGoods(guid);
             });
         }
     }
