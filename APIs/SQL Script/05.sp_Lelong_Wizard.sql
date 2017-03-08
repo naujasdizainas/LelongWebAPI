@@ -75,7 +75,7 @@ GO
 ------------------------------------------------
 -- sp Wizard Select All
 IF EXISTS (SELECT * FROM sys.objects  
-			WHERE  object_id = OBJECT_ID(N'[dbo].[Wizard_SectlAll]') AND type IN (N'P', N'PC')) 
+			WHERE  object_id = OBJECT_ID(N'[dbo].[Wizard_SelectAll]') AND type IN (N'P', N'PC')) 
 DROP PROCEDURE [dbo].[Wizard_SelectAll] 
 GO 
 -- =============================================
