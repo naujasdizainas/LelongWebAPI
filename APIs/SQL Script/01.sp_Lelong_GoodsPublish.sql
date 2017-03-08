@@ -113,7 +113,7 @@ BEGIN
 			DELETE FROM [dbo].[GoodsPublishPhoto] 
 			WHERE [GoodPublishId] IN (
 				SELECT [GoodPublishId] 
-				FROM [dbo].[GoodsPublish] WHERE [Guid] = @Guid)
+				FROM [dbo].[GoodsPublish] WHERE [Guid] = @Guid) 
 		END 
 		ELSE 
 		BEGIN 
@@ -263,7 +263,7 @@ CREATE PROCEDURE [dbo].[GoodsPublish_Update]
 	@CostPrice REAL, 
 	@SaleType NVARCHAR(255), 
 	-- 
-	@Category INT, 
+	@Category NVARCHAR(255), 
 	@StoreCategory INT, 
 	@Brand NVARCHAR(255), 
 	@ShipWithin INT, 
@@ -334,8 +334,8 @@ BEGIN
 			[PhotoUrl] = P.[PhotoUrl], 
 			[PhotoDescription] = P.[PhotoDescription] 
 		FROM [dbo].[GoodsPublishPhoto] GP
-		INNER JOIN @GoodsPublishPhoto P ON GP.PhotoId = P.PhotoId
-		WHERE GP.[GoodPublishId] = @GoodPublishId 
+		INNER JOIN @GoodsPublishPhoto P ON (GP.PhotoId = P.PhotoId) 
+			   AND (GP.[GoodPublishId] = @GoodPublishId) 
 		  
 		COMMIT TRANSACTION 
 	END TRY 
