@@ -420,6 +420,11 @@
     <Content Include="app\directives\multiple-autocomplete-field\multiple-select.js" />
     <Content Include="app\directives\multiple-autocomplete-field\multiple-select.min.css" />
     <Content Include="app\directives\multiple-autocomplete-field\multiple-select.min.js" />
+    <Content Include="app\directives\swiper\angular-swiper.js" />
+    <Content Include="app\directives\swiper\css\swiper.css" />
+    <Content Include="app\directives\swiper\css\swiper.min.css" />
+    <Content Include="app\directives\swiper\js\swiper.js" />
+    <Content Include="app\directives\swiper\js\swiper.min.js" />
     <Content Include="app\templates\templates.js" />
     <Content Include="Global.asax" />
     <Content Include="GoodsImage\chekcPer.png" />
@@ -529,8 +534,7 @@
     <Folder Include="app\assets\global\" />
     <Folder Include="app\assets\js\" />
     <Folder Include="app\services\" />
-	<Folder Include="app\templates\" />
-    <Folder Include="App_Data\Images\" />
+	<Folder Include="app\templates\" />    <Folder Include="App_Data\Images\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

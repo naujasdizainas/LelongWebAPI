@@ -72,7 +72,7 @@
     <!-- BEGIN CONTAINER -->
     <div class="page-container">
         <div style="width:100%;height:100%;background-color:#f5f5f5; min-height: 850px;">
-            <div class="portlet box">
+            <div class="portlet box blue">
                 <div class="portlet-title">
                     <div class="caption" style="float:none !important">
                         <div class="center-div" ng-show="goodPublishId != undefined">
@@ -82,8 +82,19 @@
                             <i class="fa fa-tags"></i> Add New Goods Publish
                         </div>
                     </div>
-                    <hr />
+                </div>
+                <div class="portlet-body">
                     <div ng-class="result">{{message}}</div>
+                    <div class="form-group row row-new-style">
+                        <div class="col-md-10" style="float:right">
+                            <ks-swiper-container initial-slide="1" loop="false" show-nav-buttons="true" slides-per-view="3" space-between="0" pagination-clickable="false">
+                                <ks-swiper-slide class="swiper-slide" ng-repeat="p in goodItem.listPhoto">
+                                    <img ng-src="{{p.PhotoUrl}}">
+                                </ks-swiper-slide>
+                            </ks-swiper-container>
+                        </div>                        
+                    </div>
+
                     <div class="form-group row row-new-style">
                         <label class="col-sm-2 col-form-label">Title *</label>
                         <div class="col-md-10">
@@ -94,8 +105,8 @@
                         <label class="col-sm-2 col-form-label">Category</label>
                         <div class="col-md-10">
                             <multiple-autocomplete style="float:left;width:100%" ng-model="curLstCategory"
-                                                   object-property="name"
-                                                   suggestions-arr="defaultCategory">
+                                                    object-property="name"
+                                                    suggestions-arr="defaultCategory">
                             </multiple-autocomplete>
                         </div>
                     </div>
@@ -121,9 +132,8 @@
                             <input type="number" id="txtSalePrice" placeholder="SalePrice" ng-model="goodItem.SalePrice" required style="color:black; width:100%" value="{{goodItem.SalePrice}}" />
                         </div>
                     </div>
-                    <hr />
-                    <button ng-click="goBack()" class="btn btn-primary glyphicon glyphicon-arrow-left"></button>
-                    <button ng-click="save()" class="btn btn-primary" style="float:right; margin-right: 15px;">Submit</button>
+                    <button ng-click="goBack()" class="btn btn-primary glyphicon glyphicon-arrow-left btn-custom"></button>
+                    <button ng-click="save()" class="btn btn-primary btn-custom" style="float:right; margin-right: 15px;">Submit</button>
                 </div>
             </div>
         </div>
@@ -175,11 +185,15 @@
     <script src="/app/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
     <script src="/app/directives/multiple-autocomplete-field/multiple-select.min.js"></script>
     <link href="/app/directives/multiple-autocomplete-field/multiple-select.min.css" rel="stylesheet">  
-    
+
+    <link href="/app/directives/swiper/css/swiper.min.css" rel="stylesheet" />
+    <script src="/app/directives/swiper/js/swiper.min.js"></script>
+
     <script src="/app/app.js"></script>
     <script src="/app/components/Home/detail.js"></script>
 
     <script src="/app/directives/multiple-autocomplete-field/multiple-autocomplete-field.js"></script> 
+    <script src="/app/directives/swiper/angular-swiper.js"></script> 
     <!-- END PAGE LEVEL SCRIPTS -->
     <script>
         jQuery(document).ready(function() {
@@ -187,6 +201,7 @@
             Layout.init(); // init layout
             QuickSidebar.init(); // init quick sidebar
         });
+       
     </script>
     <!-- END JAVASCRIPTS -->
 </body>

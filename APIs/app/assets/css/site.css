@@ -92,6 +92,55 @@ table thead tr th.sortable {
      display: inline-block;
  }
 
+ .btn-custom {
+  background-color: hsl(214, 37%, 28%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#7a99c1", endColorstr="#2c4361") !important;
+  /*background-image: -khtml-gradient(linear, left top, left bottom, from(#7a99c1), to(#2c4361));*/
+  background-image: -moz-linear-gradient(top, #7a99c1, #2c4361);
+  /*background-image: -ms-linear-gradient(top, #7a99c1, #2c4361);*/
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7a99c1), color-stop(100%, #2c4361)) !important;
+  background-image: -webkit-linear-gradient(top, #7a99c1, #2c4361) !important;
+  background-image: -o-linear-gradient(top, #7a99c1, #2c4361) !important;
+  background-image: linear-gradient(#7a99c1, #2c4361) !important;
+  border-color: #2c4361 #2c4361 hsl(214, 37%, 19.5%) !important;
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.56);
+  -webkit-font-smoothing: antialiased;
+}
+
  .row-new-style{
      margin-right : 0px !important;
  }
+
+ .table > tbody > tr > td:nth-child(2){
+     max-width:109px;
+ }
+
+ .table > tbody > tr > td:nth-child(2) > img{
+     width: 100%;
+ }
+
+ .swiper-container {
+        width: 100%;
+        height: 100%;
+    }
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+        
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}

@@ -4,10 +4,9 @@
             $scope.goodPublishId = '';
             $scope.goodItem = {};
             $scope.isNew = true;
-            $scope.username = "VoiCoi84";
-            $scope.password = "123456";
             $scope.result = '';
             $scope.message = '';
+            
             $scope.initdetail = function () {
                 if ($scope.goodPublishId != undefined || $scope.goodPublishId != '') {
                     $scope.isNew = false;
@@ -45,6 +44,7 @@
                                 for (var j = 0; j < $scope.defaultCategory.length; j++) {
                                     if (split[i] == $scope.defaultCategory[j].id.toString()) {
                                         $scope.curLstCategory.push($scope.defaultCategory[j]);
+                                        break;
                                     }
                                 }
                             }
@@ -56,7 +56,7 @@
                     //doing else
                 }               
             }
-                       
+            
            
             $scope.goBack = function () {
                 window.location.href = '../Home/home.html';

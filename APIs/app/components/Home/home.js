@@ -1,9 +1,9 @@
 ﻿angular.module('LelongApi.app.home').controller('homeCtrl',
         function ($scope, $http, $window) {
             $scope.listGoods = null;
-            $scope.username = "VoiCoi84";
-            $scope.password = "123456";
             $scope.listCategory = '';
+            $scope.modal_title = '';
+            $scope.modal_infor = '';
             $scope.defaultCategory = [
               { id: 1, name: "Phone & Tablet" },
               { id: 2, name: "Electronics & Appliances" },
@@ -45,6 +45,7 @@
                         {
                             item.Category = '';
                         }
+                        item.PhotoUrl = '';
                         if (item.listPhoto != undefined && item.listPhoto.length > 0) {
                             item.PhotoUrl = item.listPhoto[0].PhotoUrl;
                         }
@@ -61,9 +62,11 @@
                 $window.location.href = '../Home/detail.html';
             }
             $scope.delObj = function (id, name) {
-                var IsConf = confirm('You are about to delete ' + name + '. Are you sure?');
-                if (IsConf) {
-
+                //var IsConf = confirm('You are about to delete ' + name + '. Are you sure?');
+                $('#myModal').modal('show');
+                $scope.modal_title = "Delete information of " + name;
+                $scope.modal_infor = "Are you sure delete " + name + "?";
+                $("#btnAccept").off('click').click(function () {
                     var url = "/api/goods/deleteGoods/?guid=" + id;
 
                     var header = {
@@ -72,13 +75,13 @@
                         "Accept": "application/json"
                     }
                     $http.delete(url, { headers: header })
-                   .success(function (data, status, headers, config) {
+                    .success(function (data, status, headers, config) {
                         $scope.init();
-                   })
-                   .error(function (data, status, headers, config) {
-                       console.log($scope.message);
-                   });
-                }
+                    })
+                    .error(function (data, status, headers, config) {
+                        console.log($scope.message);
+                    });
+                    $('#myModal').modal("hide");
+                });                
             };
         });
-
