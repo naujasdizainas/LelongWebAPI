@@ -35,6 +35,7 @@
                                 for (var j=0;j<$scope.defaultCategory.length; j++){
                                     if (split[i] == $scope.defaultCategory[j].id.toString()) {
                                         lstCate.push($scope.defaultCategory[j].name);
+                                        break;
                                     }
                                 }
                             }
@@ -43,6 +44,9 @@
                         else
                         {
                             item.Category = '';
+                        }
+                        if (item.listPhoto != undefined && item.listPhoto.length > 0) {
+                            item.PhotoUrl = item.listPhoto[0].PhotoUrl;
                         }
                     });
                 }, function (err) {
