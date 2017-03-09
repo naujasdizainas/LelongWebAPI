@@ -40,13 +40,23 @@ namespace APIs.Controllers
         [HttpPost]
         [Route("publish")]
         // input: object GoodsData --> Return Id of Goods published.
-        public int PublishGoods(Goods goodsItem)
+        public PublishGoodsResult PublishGoods(List<Goods> listGoodsItem)
         {
             return Execute(session =>
             {
-                goodsItem.UserId = session.User.UserId;
-                var goodsId = GoodsService.PublishGoods(goodsItem);
-                return goodsId;
+                PublishGoodsResult result = new PublishGoodsResult();
+                foreach (var goodsItem in listGoodsItem)
+                {
+                    goodsItem.UserId = session.User.UserId;
+                    var goodsId = GoodsService.PublishGoods(goodsItem);
+                    if (goodsId <= 0)
+                    {
+                        result.listGuidPublishFailed.Add(goodsItem.Guid);
+                    }
+                }
+                var messageResult = result.listGuidPublishFailed.Count>0 ? "Failed":"Success";
+                result.message = messageResult;
+                return result;
             });
            
         }
