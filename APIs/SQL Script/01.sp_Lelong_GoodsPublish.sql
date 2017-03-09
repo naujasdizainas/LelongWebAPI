@@ -624,6 +624,7 @@ BEGIN
 	FROM [dbo].[GoodsPublish] 
 	WHERE [UserId] = @UserId 
 	  AND [Active] <> 0 
+	ORDER BY [GoodPublishId] DESC 
 	-- 
 	SELECT [PhotoId], G.[GoodPublishId], [PhotoName], [PhotoUrl], [PhotoDescription]  
 	FROM [dbo].[GoodsPublishPhoto] P 
