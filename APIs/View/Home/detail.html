@@ -87,10 +87,10 @@
                     <div ng-class="result">{{message}}</div>
                     <div class="form-group row row-new-style">
                         <div class="col-md-10" style="float:right">
-                            <ks-swiper-container initial-slide="1" loop="false" show-nav-buttons="false" slides-per-view="3" pagination-clickable="true" on-ready="onReadySwiper(swiper)">
+                            <ks-swiper-container loop="false" show-nav-buttons="false" slides-per-view="3" on-ready="onReadySwiper(swiper)">
                                 <ks-swiper-slide class="swiper-slide" ng-repeat="s in slides">
-                                    <a class="example-image-link" href="{{s.PhotoUrl}}" data-lightbox="example-{{s.PhotoId}}">
-                                        <img class="example-image" src="{{s.PhotoUrl}}" alt="image-{{s.PhotoId}}" />
+                                    <a class="example-image-link" href="{{s.PhotoUrl}}" data-lightbox="roadtrip">
+                                        <img class="example-image" src="{{s.PhotoUrl}}" alt="image-1" />
                                     </a>
                                 </ks-swiper-slide>
                             </ks-swiper-container>                            
