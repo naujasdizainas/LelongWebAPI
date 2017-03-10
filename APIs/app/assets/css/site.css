@@ -114,7 +114,7 @@ table thead tr th.sortable {
  }
 
  .table > tbody > tr > td:nth-child(2){
-     max-width:109px;
+     width:200px;
  }
 
  .table > tbody > tr > td:nth-child(2) > img{

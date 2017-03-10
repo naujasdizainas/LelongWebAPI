@@ -1,17 +1,14 @@
 ﻿var appHome = angular.module('LelongApi.app.home')
     .controller('detailCtrl',
         function ($scope, $http, $window) {
+            $scope.slides = [];
             $scope.goodPublishId = '';
             $scope.goodItem = {};
-            $scope.isNew = true;
             $scope.result = '';
             $scope.message = '';
             $scope.modal_title = '';
             $scope.modal_infor = '';
             $scope.initdetail = function () {
-                if ($scope.goodPublishId != undefined || $scope.goodPublishId != '') {
-                    $scope.isNew = false;
-                }
                 $scope.curLstCategory = [];
                 $scope.defaultCategory = [
                { id: 1, name: "Phone & Tablet"},
@@ -38,7 +35,10 @@
                     }
                     $http.get(url, { headers: header }).then(function (response) {
                         
-                        $scope.goodItem = response.data;                       
+                        $scope.goodItem = response.data;
+
+                        $scope.slides = $scope.goodItem.listPhoto;
+
                         if ($scope.goodItem.Category.length > 0) {
                             var split = $scope.goodItem.Category.split(";");
                             for (var i = 0; i < split.length; i++) {
@@ -49,7 +49,7 @@
                                     }
                                 }
                             }
-                        }
+                        }                        
                     }, function (err) {
                     });
                 }
@@ -58,7 +58,6 @@
                 }               
             }
             
-           
             $scope.goBack = function () {
                 window.location.href = '../Home/home.html';
             };
