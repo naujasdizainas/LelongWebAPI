@@ -87,9 +87,9 @@
                     <div ng-class="result">{{message}}</div>
                     <div class="form-group row row-new-style">
                         <div class="col-md-10" style="float:right">
-                            <ks-swiper-container initial-slide="1" loop="false" show-nav-buttons="true" slides-per-view="3" space-between="0" pagination-clickable="false">
-                                <ks-swiper-slide class="swiper-slide" ng-repeat="p in goodItem.listPhoto">
-                                    <img ng-src="{{p.PhotoUrl}}">
+                            <ks-swiper-container initial-slide="1" loop="true" show-nav-buttons="true" slides-per-view="3" space-between="0" autoplay="5000" pagination-clickable="false">
+                                <ks-swiper-slide class="swiper-slide" ng-repeat="p in goodItem.listPhoto" >
+                                    <img ng-src="{{p.PhotoUrl}}"/>
                                 </ks-swiper-slide>
                             </ks-swiper-container>
                         </div>                        
@@ -134,6 +134,25 @@
                     </div>
                     <button ng-click="goBack()" class="btn btn-primary glyphicon glyphicon-arrow-left btn-custom"></button>
                     <button ng-click="save()" class="btn btn-primary btn-custom" style="float:right; margin-right: 15px;">Submit</button>
+                </div>
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog modal-nm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title" style="font-weight:bold" ng-bind="modal_title"></h4>
+                            </div>
+                            <div class="modal-body">
+                                <p ng-bind="modal_infor"></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" style="float:left" data-dismiss="modal">No</button>
+                                <button id="btnAccept" type="button" class="btn btn-primary">
+                                    Yes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

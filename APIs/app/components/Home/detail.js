@@ -6,7 +6,8 @@
             $scope.isNew = true;
             $scope.result = '';
             $scope.message = '';
-            
+            $scope.modal_title = '';
+            $scope.modal_infor = '';
             $scope.initdetail = function () {
                 if ($scope.goodPublishId != undefined || $scope.goodPublishId != '') {
                     $scope.isNew = false;
@@ -88,7 +89,7 @@
                 }
                 return true;
             }
-
+            
             $scope.save = function () {
                 if (!$scope.IsValid()) {
                     return 0;

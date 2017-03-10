@@ -119,11 +119,13 @@ table thead tr th.sortable {
 
  .table > tbody > tr > td:nth-child(2) > img{
      width: 100%;
+     height: 120px;
  }
 
  .swiper-container {
         width: 100%;
         height: 100%;
+        background-color:rgba(215, 219, 226, 0.37);
     }
 .swiper-slide {
     text-align: center;
@@ -143,4 +145,9 @@ table thead tr th.sortable {
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
+    margin-bottom:auto;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:auto;
+    background-color:transparent;
 }
