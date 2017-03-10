@@ -29,7 +29,7 @@
     <link href="/app/assets/plugins/icheck/css/minimal/minimal.css" rel="stylesheet" />
     <link href="/app/assets/plugins/chosen/css/chosen.css" rel="stylesheet" />
     <link href="/app/assets/plugins/chosen/css/caddy.chosen.css" rel="stylesheet" />
-
+    <link href="/app/directives/lightbox/dist/css/lightbox.min.css" rel="stylesheet" />
     <!-- bootstrap-switch -->
     <link href="/app/assets/plugins/bootstrap-switch/css/bootstrap2/bootstrap-switch.min.css" rel="stylesheet" />
 
@@ -87,9 +87,11 @@
                     <div ng-class="result">{{message}}</div>
                     <div class="form-group row row-new-style">
                         <div class="col-md-10" style="float:right">
-                            <ks-swiper-container initial-slide="3" loop="false" show-nav-buttons="true" slides-per-view="3" space-between="0" pagination-clickable="false">
+                            <ks-swiper-container initial-slide="1" loop="false" show-nav-buttons="false" slides-per-view="3" pagination-clickable="true" on-ready="onReadySwiper(swiper)">
                                 <ks-swiper-slide class="swiper-slide" ng-repeat="s in slides">
-                                    <img ng-src="{{s.PhotoUrl}}" />
+                                    <a class="example-image-link" href="{{s.PhotoUrl}}" data-lightbox="example-{{s.PhotoId}}">
+                                        <img class="example-image" src="{{s.PhotoUrl}}" alt="image-{{s.PhotoId}}" />
+                                    </a>
                                 </ks-swiper-slide>
                             </ks-swiper-container>                            
                         </div>                        
@@ -191,7 +193,7 @@
     
     <script src="/app/directives/multiple-autocomplete-field/multiple-autocomplete-field.js"></script>
     <script src="/app/directives/swiper/angular-swiper.js"></script> 
-
+    <script src="/app/directives/lightbox/dist/js/lightbox-plus-jquery.min.js"></script>
     <script src="/app/app.js"></script>
     <script src="/app/components/Home/home.js"></script>
     <script src="/app/components/Home/detail.js"></script>

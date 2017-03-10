@@ -8,6 +8,11 @@
             $scope.message = '';
             $scope.modal_title = '';
             $scope.modal_infor = '';
+
+            $scope.onReadySwiper = function (swiper) {
+                swiper.initObservers();
+            };
+
             $scope.initdetail = function () {
                 $scope.curLstCategory = [];
                 $scope.defaultCategory = [

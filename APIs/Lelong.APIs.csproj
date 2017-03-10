@@ -415,6 +415,16 @@
     <Content Include="app\components\Home\detail.js" />
     <Content Include="app\components\Home\home.js" />
     <Content Include="app\directives\appDirectives.js" />
+    <Content Include="app\directives\lightbox\dist\css\lightbox.css" />
+    <Content Include="app\directives\lightbox\dist\css\lightbox.min.css" />
+    <Content Include="app\directives\lightbox\dist\images\close.png" />
+    <Content Include="app\directives\lightbox\dist\images\loading.gif" />
+    <Content Include="app\directives\lightbox\dist\images\next.png" />
+    <Content Include="app\directives\lightbox\dist\images\prev.png" />
+    <Content Include="app\directives\lightbox\dist\js\lightbox-plus-jquery.js" />
+    <Content Include="app\directives\lightbox\dist\js\lightbox-plus-jquery.min.js" />
+    <Content Include="app\directives\lightbox\dist\js\lightbox.js" />
+    <Content Include="app\directives\lightbox\dist\js\lightbox.min.js" />
     <Content Include="app\directives\multiple-autocomplete-field\multiple-autocomplete-field.js" />
     <Content Include="app\directives\multiple-autocomplete-field\multiple-autocomplete-tpl.html" />
     <Content Include="app\directives\multiple-autocomplete-field\multiple-select.css" />
@@ -522,6 +532,8 @@
     <Content Include="app\assets\plugins\simple-line-icons-2.3.2\package.json" />
     <Content Include="app\assets\plugins\simple-line-icons-2.3.2\README.md" />
     <Content Include="app\assets\plugins\simple-line-icons-2.3.2\scss\simple-line-icons.scss" />
+    <Content Include="app\directives\lightbox\dist\js\lightbox-plus-jquery.min.map" />
+    <Content Include="app\directives\lightbox\dist\js\lightbox.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
