@@ -41,8 +41,6 @@
     <link href="/app/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
     <link href="/app/assets/css/site.css" rel="stylesheet" />
     <!-- END THEME STYLES -->
-    
-
 </head>
 <body class="page-header-fixed page-quick-sidebar-over-content " ng-app="LelongApi.app" ng-controller="homeCtrl" ng-init="init()">
     <!-- BEGIN HEADER -->
@@ -81,7 +79,6 @@
                     <button class="btn right-left-btn btn-custom" ng-click="addObj()">Add New</button>
                     <div class="tools">
                         <a href="javascript:;" class="collapse" data-original-title="" title="Goods Publish"> </a>
-                        <input type="button" class="btn-primary" value="Upload2" ng-click="showDownloadMulti()" />
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -89,7 +86,6 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th> Action </th>
                                     <th> Picture </th>
                                     <th> Title </th>
                                     <th> Category </th>
@@ -97,14 +93,12 @@
                                     <th> Brand </th>
                                     <th> Quantity </th>
                                     <th> Saleprice </th>
+                                    <th> Edit </th>
+                                    <th> Delete </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="g in listGoods">
-                                    <td>
-                                        <a ng-click="editObj(g.GoodPublishId)" class="glyphicon glyphicon-edit" title="edit"></a>|
-                                        <a ng-click="delObj(g.Guid,g.Title)" class="glyphicon glyphicon-trash" title="delete"></a>
-                                    </td>                 
+                                <tr ng-repeat="g in listGoods">                
                                     <td> <img ng-hide="g.PhotoUrl == ''" src="{{g.PhotoUrl}}" /> </td>              
                                     <td> {{g.Title}} </td>
                                     <td> {{g.Category}} </td>
@@ -112,6 +106,12 @@
                                     <td> {{g.Brand}} </td>
                                     <td> {{g.Quantity}} </td>
                                     <td> {{g.SalePrice}} </td>
+                                    <td>
+                                        <button ng-click="editObj(g.GoodPublishId)" class="btn btn-primary btn-xs" title="edit"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    </td>
+                                    <td>
+                                        <button ng-click="delObj(g.Guid,g.Title)" class="btn btn-danger btn-xs" title="delete"><span class="glyphicon glyphicon-trash"></span></button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
