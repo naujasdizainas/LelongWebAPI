@@ -159,6 +159,7 @@
     <Content Include="app\assets\plugins\angular-loading-bar\loading-bar.js" />
     <Content Include="app\assets\plugins\angular-loading-bar\loading-bar.min.css" />
     <Content Include="app\assets\plugins\angular-loading-bar\loading-bar.min.js" />
+    <Content Include="app\assets\plugins\angular-modal-service\angular-modal-service.js" />
     <Content Include="app\assets\plugins\angular-paging\paging.js" />
     <Content Include="app\assets\plugins\angular-paging\paging.min.js" />
     <Content Include="app\assets\plugins\angularjs-1.5.x\angular-animate.min.js" />
@@ -264,6 +265,9 @@
     <Content Include="app\assets\plugins\date-picker\ng-eternicode-datepicker.min.js" />
     <Content Include="app\assets\plugins\easypiechart\angular.easypiechart.js" />
     <Content Include="app\assets\plugins\easypiechart\angular.easypiechart.min.js" />
+    <Content Include="app\assets\plugins\file-upload-multiple\imageUploadMultiple.html" />
+    <Content Include="app\assets\plugins\file-upload-multiple\imageUploadMultipleController.js" />
+    <Content Include="app\assets\plugins\file-upload-multiple\Module.js" />
     <Content Include="app\assets\plugins\font-awesome-4.6.3\css\font-awesome.css" />
     <Content Include="app\assets\plugins\font-awesome-4.6.3\css\font-awesome.min.css" />
     <Content Include="app\assets\plugins\font-awesome-4.6.3\fonts\fontawesome-webfont.svg" />
@@ -414,6 +418,7 @@
     <Content Include="app\assets\plugins\zipjs\zip.js" />
     <Content Include="app\components\Home\detail.js" />
     <Content Include="app\components\Home\home.js" />
+    <Content Include="app\components\Home\multipleController.js" />
     <Content Include="app\directives\appDirectives.js" />
     <Content Include="app\directives\lightbox\dist\css\lightbox.css" />
     <Content Include="app\directives\lightbox\dist\css\lightbox.min.css" />
@@ -450,6 +455,7 @@
     <Content Include="SQL Script\06.Lelong_Function.sql" />
     <Content Include="View\Home\detail.html" />
     <Content Include="View\Home\home.html" />
+    <Content Include="View\Home\imageUploadMultiple.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
