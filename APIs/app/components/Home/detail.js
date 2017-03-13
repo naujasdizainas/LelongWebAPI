@@ -3,6 +3,7 @@
         function ($scope, $http, $window) {
             $scope.slides = [];
             $scope.goodPublishId = '';
+            $scope.actionName = '';
             $scope.goodItem = {};
             $scope.result = '';
             $scope.message = '';
@@ -31,6 +32,8 @@
                 $scope.goodPublishId = $scope.getUrlVars()["GoodPublishId"];
                 
                 if ($scope.goodPublishId != undefined) {
+                    
+                    $scope.actionName = "Update Goods";
                     var url = "/api/goods/selectById/?goodId=" + $scope.goodPublishId;
 
                     var header = {
@@ -60,6 +63,7 @@
                 }
                 else {
                     //doing else
+                    $scope.actionName = "Add New Goods";
                 }               
             }
             
