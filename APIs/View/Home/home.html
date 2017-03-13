@@ -92,13 +92,12 @@
                                     <th> Brand </th>
                                     <th> Quantity </th>
                                     <th> Saleprice </th>
-                                    <th> Edit </th>
-                                    <th> Delete </th>
+                                    <th colspan="2" style="text-align:center;"> Action </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="g in listGoods">
-                                    <td> <img ng-hide="g.PhotoUrl == ''" src="{{g.PhotoUrl}}" /> </td>
+                                    <td class="img-style"> <img ng-hide="g.PhotoUrl == ''" src="{{g.PhotoUrl}}" /> </td>
                                     <td> {{g.Title}} </td>
                                     <td> {{g.Category}} </td>
                                     <td> {{g.Condition}} </td>
