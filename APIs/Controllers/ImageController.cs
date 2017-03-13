@@ -75,19 +75,61 @@ namespace APIs.Controllers
                     return Request.CreateResponse(HttpStatusCode.NotFound, dict);
                 }
             });
-
         }
 
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("download")]
-        public string DownloadImage(string photoName)
+        public ActionResult DownloadImage(string photoName)
         {
             return Execute(session =>
             {
                 var imagePath = ImageService.GetImageUrl(photoName);
+                var image = Image.FromFile(imagePath);
 
-                return imagePath;
+                using (var ms = new MemoryStream())
+                {
+                    if (imagePath.Contains(".jpg"))
+                    {
+                        image.Save(ms, ImageFormat.Jpeg);
+                        return new FileContentResult(ms.ToArray(), "image/jpeg");
+                    }
+                    else if (imagePath.Contains(".gif"))
+                    {
+                        image.Save(ms, ImageFormat.Gif);
+                        return new FileContentResult(ms.ToArray(), "image/gif");
+                    }
+                    else if (imagePath.Contains(".png"))
+                    {
+                        image.Save(ms, ImageFormat.Png);
+                        return new FileContentResult(ms.ToArray(), "image/png");
+                    }
+
+                    return new FileContentResult(ms.ToArray(), "image/jpeg");
+                }
             });
+        }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("addGoodsImage")]
+        public string UploadFileToServer()
+        {
+            var httpRequest = HttpContext.Current.Request;
+            var length = httpRequest.ContentLength;
+            var bytes = new byte[length];
+            httpRequest.InputStream.Read(bytes, 0, length);
+
+            var fileName = httpRequest.Headers["X-File-Name"];
+            var fileSize = httpRequest.Headers["X-File-Size"];
+            var fileType = httpRequest.Headers["X-File-Type"];
+
+            var path = Path.Combine(HttpContext.Current.Server.MapPath("~/GoodsImage"), fileName);
+
+            // save the file.
+            var fileStream = new FileStream(path, FileMode.Create, FileAccess.ReadWrite);
+            fileStream.Write(bytes, 0, length);
+            fileStream.Close();
+
+            return string.Format("{0} bytes uploaded", bytes.Length);
         }
     }
 }
