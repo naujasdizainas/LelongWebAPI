@@ -265,9 +265,6 @@
     <Content Include="app\assets\plugins\date-picker\ng-eternicode-datepicker.min.js" />
     <Content Include="app\assets\plugins\easypiechart\angular.easypiechart.js" />
     <Content Include="app\assets\plugins\easypiechart\angular.easypiechart.min.js" />
-    <Content Include="app\assets\plugins\file-upload-multiple\imageUploadMultiple.html" />
-    <Content Include="app\assets\plugins\file-upload-multiple\imageUploadMultipleController.js" />
-    <Content Include="app\assets\plugins\file-upload-multiple\Module.js" />
     <Content Include="app\assets\plugins\font-awesome-4.6.3\css\font-awesome.css" />
     <Content Include="app\assets\plugins\font-awesome-4.6.3\css\font-awesome.min.css" />
     <Content Include="app\assets\plugins\font-awesome-4.6.3\fonts\fontawesome-webfont.svg" />
@@ -418,7 +415,7 @@
     <Content Include="app\assets\plugins\zipjs\zip.js" />
     <Content Include="app\components\Home\detail.js" />
     <Content Include="app\components\Home\home.js" />
-    <Content Include="app\components\Home\multipleController.js" />
+    <Content Include="app\components\Home\multipleImage.js" />
     <Content Include="app\directives\appDirectives.js" />
     <Content Include="app\directives\lightbox\dist\css\lightbox.css" />
     <Content Include="app\directives\lightbox\dist\css\lightbox.min.css" />

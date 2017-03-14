@@ -98,7 +98,7 @@
                     </div>
 
                     <div class="form-group row row-new-style">
-                        <label class="col-sm-2 col-form-label">Title *</label>
+                        <label class="col-sm-2 col-form-label">Title<span class="text-danger">*</span></label>
                         <div class="col-md-10">
                             <input id="txtTitle" type="text" placeholder="Title" autofocus ng-model="goodItem.Title" required style="color:black;width:100%;" />
                         </div>
@@ -113,7 +113,7 @@
                         </div>
                     </div>
                     <div class="form-group row row-new-style">
-                        <label class="col-sm-2 col-form-label">Condition *</label>
+                        <label class="col-sm-2 col-form-label">Condition<span class="text-danger">*</span></label>
                         <div class="col-md-10">
                             <input type="text" id="txtCondition" placeholder="Condition" ng-model="goodItem.Condition" required style="color:black;width:100%">
                         </div>
@@ -125,7 +125,7 @@
                         </div>
                     </div>
                     <div class="form-group row row-new-style">
-                        <label class="col-sm-2 col-form-label">Quantity *</label>
+                        <label class="col-sm-2 col-form-label">Quantity<span class="text-danger">*</span></label>
                         <div class="col-md-3">
                             <input type="number" id="txtQuantity" placeholder="Quantity" ng-model="goodItem.Quantity" required style="color:black;width:100%" />
                         </div>
@@ -134,6 +134,12 @@
                             <input type="number" id="txtSalePrice" placeholder="SalePrice" ng-model="goodItem.SalePrice" required style="color:black; width:100%" />
                         </div>
                     </div>
+                    <!--<div class="form-group row row-new-style">
+                        <label class="col-sm-2 col-form-label">Photos</label>
+                        <div class="col-md-3">
+                            <button type="button" id="txtPhotos" class="btn btn-primary" placeholder="listPhoto" ng-model="goodItem.listPhoto" ng-click="showMultiUpload()">Upload</button>
+                        </div>
+                    </div>-->
                     <div class="form-group row row-new-style" style="position:relative;">
                         <div style="float:left; padding-left:1em;"><button ng-click="goBack()" class="btn btn-warning glyphicon glyphicon-arrow-left"></button></div>
                         <div style="float:right; padding-right:1em;"><button ng-click="save()" class="btn btn-primary text-white">Submit</button></div>
@@ -181,7 +187,7 @@
     <script src="/app/assets/plugins/date-picker/js/datetimepicker.js"></script>
     <script src="/app/assets/plugins/chosen/js/chosen.jquery.min.js"></script>
     <script src="/app/assets/plugins/chosen/chosen.js"></script>
-
+    <script src="/app/assets/plugins/angular-modal-service/angular-modal-service.js"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="/app/assets/global/scripts/metronic.js" type="text/javascript"></script>
@@ -197,9 +203,9 @@
     <script src="/app/directives/swiper/angular-swiper.js"></script> 
     <script src="/app/directives/lightbox/dist/js/lightbox-plus-jquery.min.js"></script>
     <script src="/app/app.js"></script>
-    <script src="/app/components/Home/home.js"></script>
+    <!--<script src="/app/components/Home/home.js"></script>-->
     <script src="/app/components/Home/detail.js"></script>
-
+    <script src="/app/components/Home/multipleImage.js"></script>s
     
     <!-- END PAGE LEVEL SCRIPTS -->
     <script>

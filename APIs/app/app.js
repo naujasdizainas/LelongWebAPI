@@ -1,6 +1,7 @@
 ﻿
 angular.module('LelongApi.app.home', [
-      'templates', 'ksSwiper'
+      'templates', 'ksSwiper',
+      'angularModalService', 'ngAnimate'
 ]);
 
 /*--------------------- Main App ---------------------*/

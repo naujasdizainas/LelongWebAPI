@@ -1,4 +1,5 @@
-﻿<div class="modal fade">
+﻿
+  <div class="modal fade">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,18 +8,14 @@
             </div>
             <div class="modal-body">
                 <div class="col-md-12">
-                    <h2>Image/File Upload With Angular::</h2>
+                    <h2>Image/File Upload With Angular</h2>
                 </div>
                 <div>
                     <div class="col-md-12" style="text-align:center;margin-bottom:10px;">
                         <input type="file" id="file" name="file" multiple onchange="angular.element(this).scope().setFile(this)" accept="image/*" class="btn btn-warning" />
                     </div>
-                    <div class="col-md-12">
-                        <button ng-click="UploadFile()" class="btn btn-primary">Upload File</button>
-                    </div>
-
+                    <div class="col-md-12"></div>
                     <div class="col-md-12" style="padding-top:10px;">
-
                         <div class="col-md-7">
                             <table class="table table-bordered table-striped">
                                 <thead>
@@ -31,16 +28,12 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="file in fileList">
-
                                         <td>{{file.file.name}}</td>
                                         <td>{{file.file.type}}</td>
                                         <td>{{file.file.size}}</td>
                                         <td>
-                                            <div id="{{'P'+$index}}">
-
-                                            </div>
+                                            <div id="{{'P'+$index}}"></div>
                                         </td>
-
                                     </tr>
                                 </tbody>
                             </table>
@@ -49,9 +42,16 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" ng-click="UploadFile()" class="btn btn-primary">Upload</button>
                 <button type="button" ng-click="close()" class="btn btn-primary" data-dismiss="modal">OK</button>
                 <button type="button" ng-click="cancel()" class="btn">Cancel</button>
             </div>
         </div>
     </div>
 </div>
+   
+  
+   
+
+   
+
