@@ -39,7 +39,7 @@ namespace APIs.Controllers
 
         [HttpPost]
         [Route("publish")]
-        // input: object GoodsData --> Return Id of Goods published.
+        // input: object GoodsData --> Return object PublishGoodsResult
         public PublishGoodsResult PublishGoods(List<Goods> listGoodsItem)
         {
             return Execute(session =>
@@ -48,6 +48,14 @@ namespace APIs.Controllers
                 foreach (var goodsItem in listGoodsItem)
                 {
                     goodsItem.UserId = session.User.UserId;
+                    var listPhotoServer = GoodsService.GetListGoodsPhoto(goodsItem.Guid);
+                    if(listPhotoServer.Count>0)
+                    {
+                        for (int i = 0; i < listPhotoServer.Count; i++)
+                        {
+                          if(!string.IsNullOrEmpty(listPhotoServer[i].PhotoName)) result.listCurrentPhotoName.Add(listPhotoServer[i].PhotoName);
+                        }
+                    }
                     var goodsId = GoodsService.PublishGoods(goodsItem);
                     if (goodsId <= 0)
                     {
