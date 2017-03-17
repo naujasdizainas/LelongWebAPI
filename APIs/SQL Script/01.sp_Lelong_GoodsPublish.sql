@@ -25,7 +25,19 @@ GO
 -- Create date: 24-Feb-2017
 -- Description:	GoodsPublish Insert
 -- =============================================
-CREATE PROCEDURE [dbo].[GoodsPublish_Insert] 
+USE [LelongDB]
+GO
+/****** Object:  StoredProcedure [dbo].[GoodsPublish_Insert]    Script Date: 3/17/2017 5:30:41 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		ThaoND
+-- Create date: 24-Feb-2017
+-- Description:	GoodsPublish Insert
+-- =============================================
+Create PROCEDURE [dbo].[GoodsPublish_Insert] 
 	@UserId INT = 0, 
 	@Title NVARCHAR(255) = '', 
 	@SubTitle NVARCHAR(255) = '', 
@@ -110,10 +122,25 @@ BEGIN
 			--
 			SET @v_goodpublishid = (SELECT [GoodPublishId] FROM [dbo].[GoodsPublish] WHERE [Guid] = @Guid) 
 			-- 
-			DELETE FROM [dbo].[GoodsPublishPhoto] 
-			WHERE [GoodPublishId] IN (
-				SELECT [GoodPublishId] 
-				FROM [dbo].[GoodsPublish] WHERE [Guid] = @Guid) 
+
+		   INSERT INTO [dbo].[GoodsPublishPhoto]
+			(
+				[GoodPublishId],
+				[PhotoName],
+				[PhotoUrl],
+				[PhotoDescription] 
+			)
+			(SELECT @v_goodpublishid, 
+				[PhotoName], 
+				[PhotoUrl], 
+				[PhotoDescription] 
+			FROM @GoodsPublishPhoto newPhoto 
+			
+			where (newPhoto.PhotoName not in (select oldPhoto.PhotoName from [GoodsPublishPhoto] oldPhoto where oldPhoto.GoodPublishId=@v_goodpublishid)) )
+
+			Delete FROM [dbo].[GoodsPublishPhoto] Where ((PhotoName not in (select PhotoName from @GoodsPublishPhoto ))
+			AND ([GoodPublishId] = @v_goodpublishid))
+
 		END 
 		ELSE 
 		BEGIN 
@@ -178,7 +205,7 @@ BEGIN
 				-- 
 				@Video, 
 				@VideoAlign , 
-				@Active, 
+				1, --/*@Active*/
 				@Weight, 
 				@Quantity, 
 				-- 
@@ -195,22 +222,22 @@ BEGIN
 			) 
 			-- 
 			SELECT @v_goodpublishid = SCOPE_IDENTITY() 
-			--
-			DELETE FROM [dbo].[GoodsPublishPhoto] WHERE [GoodPublishId] = @v_goodpublishid 
+			
+			-- Insert Photo
+			INSERT INTO [dbo].[GoodsPublishPhoto]
+			(
+				[GoodPublishId],
+				[PhotoName],
+				[PhotoUrl],
+				[PhotoDescription] 
+			)
+			SELECT @v_goodpublishid, 
+				[PhotoName], 
+				[PhotoUrl], 
+				[PhotoDescription] 
+			FROM @GoodsPublishPhoto 
 		END
-		-- Insert Photo
-		INSERT INTO [dbo].[GoodsPublishPhoto]
-		(
-			[GoodPublishId],
-			[PhotoName],
-			[PhotoUrl],
-			[PhotoDescription] 
-		)
-		SELECT @v_goodpublishid, 
-			[PhotoName], 
-			[PhotoUrl], 
-			[PhotoDescription] 
-		FROM @GoodsPublishPhoto 
+		
 		COMMIT TRANSACTION 
 	END TRY 
 	BEGIN CATCH 
@@ -225,7 +252,7 @@ BEGIN
 	END CATCH
 	RETURN @v_goodpublishid
 END 
-GO 
+
 ----------------------------------------------
 -- sp GoodsPublish Update
 IF EXISTS (SELECT * FROM sys.objects  
