@@ -314,4 +314,37 @@ GO
 --	END CATCH
 --END 
 --GO 
+
+USE [LelongDB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[GoodsPublishPhoto_SelectBy_GuidGoods]    Script Date: 3/15/2017 5:22:41 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		Thangtv
+-- Create date: 24-Feb-2017
+-- Description:	GoodsPublishPhoto select by GoodsId
+-- =============================================
+CREATE PROCEDURE [dbo].[GoodsPublishPhoto_SelectBy_GuidGoods] 
+	@Guid varchar(50) 
+AS 
+BEGIN 
+	SELECT 
+		[PhotoId], [GoodPublishId], [PhotoName], 
+		[PhotoUrl], [PhotoDescription]  
+	FROM [dbo].[GoodsPublishPhoto] 
+	WHERE [GoodPublishId] = (select [GoodPublishId] from GoodsPublish where Guid = @Guid) 
+END 
+
+GO
+
+
+
+
+
 ------------------------------------------------

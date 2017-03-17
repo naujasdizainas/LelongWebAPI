@@ -10,8 +10,10 @@ namespace Lelong.Models
     {
         public string message { get; set; }
         public List<String> listGuidPublishFailed { get; set; }
+        public List<String> listCurrentPhotoName { get; set; }
         public PublishGoodsResult()
         {
+            listCurrentPhotoName = new List<string>();
             listGuidPublishFailed = new List<string>();
         }
     }

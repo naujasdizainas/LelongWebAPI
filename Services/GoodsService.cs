@@ -190,13 +190,13 @@ namespace Lelong.Services
             return goodsItem;
         }
 
-        private List<GoodsPhoto> GetListGoodsPhoto(string listGoodsId)
+        public static List<GoodsPhoto> GetListGoodsPhoto(string GuidGoods)
         {
             var param = new[]
             {
-                new SqlParameter {ParameterName = "@listGoodsId",Value = listGoodsId,DbType = DbType.String}
+                new SqlParameter {ParameterName = "@Guid",Value = GuidGoods,DbType = DbType.String}
             };
-            DataSet dts = SqlHelper.ExecuteDataset(Config.ConnectionString, CommandType.StoredProcedure, "GetListGoodsPhoto", param);
+            DataSet dts = SqlHelper.ExecuteDataset(Config.ConnectionString, CommandType.StoredProcedure, "[GoodsPublishPhoto_SelectBy_GuidGoods]", param);
 
             var results = new List<GoodsPhoto>();
             if (dts != null && dts.Tables[0] != null && dts.Tables[0].Rows.Count > 0)
@@ -213,7 +213,7 @@ namespace Lelong.Services
             goodsPhotoItem.PhotoId = Convert.ToInt32(dr["PhotoId"]);
             goodsPhotoItem.GoodPublishId = Convert.ToInt32(dr["GoodPublishId"]);
             goodsPhotoItem.PhotoName = dr["PhotoName"].ToString();
-            goodsPhotoItem.PhotoUrl = dr["PhotoUrl"].ToString().Replace("E:\\Builds\\LelongApi", Config.LelongApiUrl);
+            goodsPhotoItem.PhotoUrl = dr["PhotoUrl"].ToString().Replace("E:\\Builds\\LelongApi", Config.LelongApiUrl).Replace("\\","/");
             goodsPhotoItem.PhotoDescription = dr["PhotoDescription"].ToString();
             return goodsPhotoItem;
         }
