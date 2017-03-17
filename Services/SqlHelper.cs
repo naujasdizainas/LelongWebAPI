@@ -476,23 +476,36 @@ namespace Lelong.Services
         public static int ExecuteNonQuery(SqlConnection connection, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
         {
             if (connection == null) throw new ArgumentNullException("connection");
-
-            // Create a command and prepare it for execution
-            SqlCommand cmd = new SqlCommand();
-            bool mustCloseConnection = false;
-            PrepareCommand(cmd, connection, (SqlTransaction)null, commandType, commandText, commandParameters, out mustCloseConnection);
-
             int retval;
-            using (Track(cmd))
-            {
-                // Finally, execute the command
-                retval = cmd.ExecuteNonQuery();
-            }
 
-            // Detach the SqlParameters from the command object, so they can be used again
-            cmd.Parameters.Clear();
-            if (mustCloseConnection)
+            //ThaoND: close connection manual by finally
+            try
+            {
+                // Create a command and prepare it for execution
+                SqlCommand cmd = new SqlCommand();
+                bool mustCloseConnection = false;
+                PrepareCommand(cmd, connection, (SqlTransaction)null, commandType, commandText, commandParameters, out mustCloseConnection);
+
+                
+                using (Track(cmd))
+                {
+                    // Finally, execute the command
+                    retval = cmd.ExecuteNonQuery();
+                }
+
+                // Detach the SqlParameters from the command object, so they can be used again
+                cmd.Parameters.Clear();
+            }
+            catch
+            {
+                retval = -1;
+                throw;
+            }
+            finally
+            {
                 connection.Close();
+            }
+            
             return retval;
         }
 
@@ -1361,25 +1374,35 @@ namespace Lelong.Services
         public static object ExecuteScalar(SqlConnection connection, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
         {
             if (connection == null) throw new ArgumentNullException("connection");
-
-            // Create a command and prepare it for execution
-            SqlCommand cmd = new SqlCommand();
-
-            bool mustCloseConnection = false;
-            PrepareCommand(cmd, connection, (SqlTransaction)null, commandType, commandText, commandParameters, out mustCloseConnection);
-
             object retval;
-            using (Track(cmd))
+
+            //ThaoND: close connection manual by finally
+            try
             {
-                // Execute the command & return the results
-                retval = cmd.ExecuteScalar();
+                // Create a command and prepare it for execution
+                SqlCommand cmd = new SqlCommand();
+
+                bool mustCloseConnection = false;
+                PrepareCommand(cmd, connection, (SqlTransaction)null, commandType, commandText, commandParameters, out mustCloseConnection);
+
+
+                using (Track(cmd))
+                {
+                    // Execute the command & return the results
+                    retval = cmd.ExecuteScalar();
+                }
+
+                // Detach the SqlParameters from the command object, so they can be used again
+                cmd.Parameters.Clear();
             }
-
-            // Detach the SqlParameters from the command object, so they can be used again
-            cmd.Parameters.Clear();
-
-            if (mustCloseConnection)
+            catch
+            {
+                retval = -1;
+            }
+            finally
+            {
                 connection.Close();
+            }
 
             return retval;
         }
@@ -1387,36 +1410,44 @@ namespace Lelong.Services
         public static object ExecuteScalarWithInputDataTable(SqlConnection connection, CommandType commandType, string commandText, DataTable tableInput,string tableName, params SqlParameter[] commandParameters)
         {
             if (connection == null) throw new ArgumentNullException("connection");
-
-            // Create a command and prepare it for execution
-            SqlCommand cmd = new SqlCommand();
-
-            bool mustCloseConnection = false;
-            PrepareCommand(cmd, connection, (SqlTransaction)null, commandType, commandText, commandParameters, out mustCloseConnection);
-            cmd.Parameters.AddWithValue("@"+tableName, tableInput).SqlDbType = SqlDbType.Structured;
-
             object retval;
-            SqlParameter returnParameter = cmd.Parameters.Add("RetVal", SqlDbType.Int);
-            returnParameter.Direction = ParameterDirection.ReturnValue;
 
-            using (Track(cmd))
+            //ThaoND: close connection manual by finally
+            try
             {
-                // Execute the command & return the results
-                retval = cmd.ExecuteNonQuery();
+                // Create a command and prepare it for execution
+                SqlCommand cmd = new SqlCommand();
+                bool mustCloseConnection = false;
+            
+                PrepareCommand(cmd, connection, (SqlTransaction)null, commandType, commandText, commandParameters, out mustCloseConnection);
+                cmd.Parameters.AddWithValue("@" + tableName, tableInput).SqlDbType = SqlDbType.Structured;
+                
+                SqlParameter returnParameter = cmd.Parameters.Add("RetVal", SqlDbType.Int);
+                returnParameter.Direction = ParameterDirection.ReturnValue;
+
+                using (Track(cmd))
+                {
+                    // Execute the command & return the results
+                    retval = cmd.ExecuteNonQuery();
+                }
+
+                // Detach the SqlParameters from the command object, so they can be used again
+                cmd.Parameters.Clear();
+                if (retval != null)
+                    return (int)returnParameter.Value;
             }
-
-            // Detach the SqlParameters from the command object, so they can be used again
-            cmd.Parameters.Clear();
-
-            if (mustCloseConnection)
+            catch
+            {
+                retval = null;
+                throw;
+            }
+            finally
+            {
                 connection.Close();
-            if(retval!=null)
-            return (int)returnParameter.Value;
+            }
 
             return retval;
         }
-
-
 
         /// <summary>
         /// Execute a stored procedure via a SqlCommand (that returns a 1x1 resultset) against the specified SqlConnection 
