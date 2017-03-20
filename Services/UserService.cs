@@ -25,7 +25,7 @@ namespace Lelong.Services
                 new SqlParameter { ParameterName = "@NumberOfPhotosAllow", Value = user.NumberOfPhotosAllow, DbType = DbType.Int32 }
             };
             
-            var result = SqlHelper.ExecuteNonQuery(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "[User_Insert]", param);
+            var result = SqlHelper.ExecuteNonQuery(Config.ConnectionString, CommandType.StoredProcedure, "[User_Insert]", param);
             return int.Parse(result.ToString());
         }
 
@@ -36,7 +36,7 @@ namespace Lelong.Services
             {
                 new SqlParameter { ParameterName = "@UserName", Value =  userName, DbType = DbType.String },
             };
-            var dataReader = SqlHelper.ExecuteReader(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "[User_SelectByUserName]", param);
+            var dataReader = SqlHelper.ExecuteReader(Config.ConnectionString, CommandType.StoredProcedure, "[User_SelectByUserName]", param);
             while (dataReader.Read())
             {
                 userLogin.UserId = dataReader["UserId"] == DBNull.Value ? default(int) : Convert.ToInt32(dataReader["UserId"]);

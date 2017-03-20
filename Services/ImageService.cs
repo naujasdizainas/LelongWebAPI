@@ -17,7 +17,7 @@ namespace Lelong.Services
                 new SqlParameter { ParameterName = "@Url", Value =  urlPath, DbType = DbType.String },
                 new SqlParameter { ParameterName = "@Name", Value =  imageName, DbType = DbType.String }
             };
-            var result = SqlHelper.ExecuteNonQuery(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "GoodsPublishPhoto_Update_Url", param);
+            var result = SqlHelper.ExecuteNonQuery(Config.ConnectionString, CommandType.StoredProcedure, "GoodsPublishPhoto_Update_Url", param);
             return true;
         }
         public static string GetImageUrl(string imageName)
@@ -26,7 +26,7 @@ namespace Lelong.Services
             {
                 new SqlParameter { ParameterName = "@Name", Value =  imageName, DbType = DbType.String }
             };
-            var result = SqlHelper.ExecuteScalar(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "GoodsPublishPhoto_Get_Url", param);
+            var result = SqlHelper.ExecuteScalar(Config.ConnectionString, CommandType.StoredProcedure, "GoodsPublishPhoto_Get_Url", param);
             return result.ToString();
         }
     }

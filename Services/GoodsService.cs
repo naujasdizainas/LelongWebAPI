@@ -50,7 +50,7 @@ namespace Lelong.Services
                 new SqlParameter { ParameterName = "@OptionsStatus", Value = goodsItem.OptionsStatus, DbType = DbType.Int32 },
             };
             
-            var result = SqlHelper.ExecuteScalarWithInputDataTable(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "GoodsPublish_Insert", SetGoodsPhotoTable(goodsItem.listPhoto), "GoodsPublishPhoto", param);
+            var result = SqlHelper.ExecuteScalarWithInputDataTable(Config.ConnectionString, CommandType.StoredProcedure, "GoodsPublish_Insert", SetGoodsPhotoTable(goodsItem.listPhoto), "GoodsPublishPhoto", param);
             return int.Parse(result.ToString());
         }
 
@@ -70,7 +70,7 @@ namespace Lelong.Services
                 new SqlParameter { ParameterName = "@Quantity", Value = goodsItem.Quantity, DbType = DbType.Int32 }              
             };
 
-            var result = SqlHelper.ExecuteScalarWithInputDataTable(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "GoodsPublish_Update", SetGoodsPhotoTable(goodsItem.listPhoto), "GoodsPublishPhoto", param);
+            var result = SqlHelper.ExecuteScalarWithInputDataTable(Config.ConnectionString, CommandType.StoredProcedure, "GoodsPublish_Update", SetGoodsPhotoTable(goodsItem.listPhoto), "GoodsPublishPhoto", param);
             return int.Parse(result.ToString());
         }
 
@@ -81,7 +81,7 @@ namespace Lelong.Services
                 new SqlParameter { ParameterName = "@Guid", Value = guid, DbType = DbType.String },
             };
 
-            return SqlHelper.ExecuteNonQuery(new SqlConnection(Config.ConnectionString), CommandType.StoredProcedure, "[GoodPublish_Delete]", param) > 0;
+            return SqlHelper.ExecuteNonQuery(Config.ConnectionString, CommandType.StoredProcedure, "[GoodPublish_Delete]", param) > 0;
         }
 
         public static IList<Goods> GetAll(int userId)
