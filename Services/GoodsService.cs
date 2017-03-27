@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Lelong.Models;
 using System.Data.SqlClient;
 using System.Data;
+using System.IO;
 
 namespace Lelong.Services
 {
@@ -183,7 +184,7 @@ namespace Lelong.Services
 
             var listPhoto = new List<GoodsPhoto>();
             listPhoto.AddRange (from DataRow drItem in tablePhoto.Rows
-                            where drItem["GoodPublishId"].ToString().Contains(goodsItem.GoodPublishId.ToString())
+                            where (drItem["GoodPublishId"].ToString().Contains(goodsItem.GoodPublishId.ToString())) &&(File.Exists(drItem["PhotoUrl"].ToString()))
                             select ParseGoodsPhotoDatarow(drItem));
             goodsItem.listPhoto = listPhoto;
 
